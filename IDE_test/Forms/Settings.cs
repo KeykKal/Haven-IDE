@@ -18,6 +18,7 @@ namespace IDE_test
         public Settings()
         {
             InitializeComponent();
+            menuStrip1.Renderer = new MyRenderer();
             loadValues();
             compilerFolderPath.Text = FilePaths.CompilerFilePath;
         }
@@ -67,5 +68,27 @@ namespace IDE_test
         {
             SaveValues();
         }
+
+        private class MyRenderer : ToolStripProfessionalRenderer
+        {
+            public MyRenderer() : base(new MyColors()) { }
+        }
+
+        private class MyColors : ProfessionalColorTable
+        {
+            public override Color MenuItemSelected
+            {
+                get { return Color.White; }
+            }
+            public override Color MenuItemSelectedGradientBegin
+            {
+                get { return Color.White; }
+            }
+            public override Color MenuItemSelectedGradientEnd
+            {
+                get { return Color.White; }
+            }
+        }
+    
     }
 }

@@ -38,26 +38,30 @@
             this.chk_Hook = new System.Windows.Forms.CheckBox();
             this.chk_disassemble = new System.Windows.Forms.CheckBox();
             this.chk_overwrite = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.AllowMerge = false;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.configToolStripMenuItem});
+            this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip1.Size = new System.Drawing.Size(646, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(601, 25);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Visible = false;
             // 
             // configToolStripMenuItem
             // 
             this.configToolStripMenuItem.Name = "configToolStripMenuItem";
-            this.configToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
-            this.configToolStripMenuItem.Text = "Config";
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(593, 19);
+            this.configToolStripMenuItem.Text = "      ";
             // 
             // ComplierOutput
             // 
@@ -72,15 +76,16 @@
             // 
             // compilerFolderPath
             // 
-            this.compilerFolderPath.Location = new System.Drawing.Point(120, 58);
+            this.compilerFolderPath.Location = new System.Drawing.Point(109, 58);
             this.compilerFolderPath.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.compilerFolderPath.Name = "compilerFolderPath";
-            this.compilerFolderPath.Size = new System.Drawing.Size(396, 23);
+            this.compilerFolderPath.ReadOnly = true;
+            this.compilerFolderPath.Size = new System.Drawing.Size(419, 23);
             this.compilerFolderPath.TabIndex = 2;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(509, 55);
+            this.button1.Location = new System.Drawing.Point(521, 54);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(36, 27);
@@ -139,12 +144,25 @@
             this.chk_overwrite.Text = "Overwrite";
             this.chk_overwrite.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.SystemColors.Control;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(601, 25);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Config";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.ClientSize = new System.Drawing.Size(646, 194);
+            this.ClientSize = new System.Drawing.Size(601, 193);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.chk_overwrite);
             this.Controls.Add(this.chk_disassemble);
             this.Controls.Add(this.chk_Hook);
@@ -153,8 +171,11 @@
             this.Controls.Add(this.compilerFolderPath);
             this.Controls.Add(this.ComplierOutput);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Settings";
             this.Text = "Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settings_FormClosing);
@@ -177,5 +198,6 @@
         public System.Windows.Forms.CheckBox chk_disassemble;
         public System.Windows.Forms.CheckBox chk_overwrite;
         public System.Windows.Forms.CheckBox chk_Log;
+        private System.Windows.Forms.Label label1;
     }
 }

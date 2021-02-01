@@ -465,7 +465,7 @@ namespace IDE_test
 
         public static void Compile(string[] filepaths)
         {
-            MessageBox.Show("Started Compiling. this will be done in the background and could take a while");
+            MessageBox.Show("Started Compiling. This will be done in the background and could take a while");
 
             GUI.Hook = Properties.Settings.Default.Hook;
             GUI.Disassemble = Properties.Settings.Default.Disassemble;

@@ -73,7 +73,7 @@ namespace IDE_test
                 {
                     using (StreamReader sr = new StreamReader(openFile.FileName))
                     {
-                        MessageBox.Show(openFile.FileName);
+                        //MessageBox.Show(openFile.FileName);
                         design.openFile(tabControl1, design.codeTextBox, openFile.FileName, sr.ReadToEnd());
                         //richTextBox1.Text = sr.ReadToEnd();
                         sr.Close();
@@ -184,7 +184,7 @@ namespace IDE_test
 
         private void TestWindowButton_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show(File.ReadAllLines("Game.txt")[0]);
+            //MessageBox.Show(File.ReadAllLines("Game.txt")[0]);
             DesignTest designTest = new DesignTest();
             designTest.ShowDialog();
         }
