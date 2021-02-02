@@ -60,7 +60,7 @@
             this.TestWindowButton = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.button1 = new System.Windows.Forms.Button();
-            this.compileButton = new System.Windows.Forms.Button();
+            this.compileButton = new FontAwesome.Sharp.IconButton();
             this.button2 = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
@@ -408,6 +408,9 @@
             this.compileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(73)))), ((int)(((byte)(60)))));
             this.compileButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.compileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.compileButton.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.compileButton.IconColor = System.Drawing.Color.Black;
+            this.compileButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.compileButton.Location = new System.Drawing.Point(235, 12);
             this.compileButton.Name = "compileButton";
             this.compileButton.Size = new System.Drawing.Size(69, 23);
@@ -448,7 +451,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MinimumSize = new System.Drawing.Size(643, 374);
             this.Name = "test_IDE";
-            this.Text = "test_IDE";
+            this.Text = "Haven - IDE";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.test_IDE_FormClosing);
             this.Load += new System.EventHandler(this.test_IDE_Load);
@@ -499,7 +502,8 @@
         private System.Windows.Forms.ToolStripMenuItem TestWindowButton;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button compileButton;
+        private System.Windows.Forms.Button s;
+        private FontAwesome.Sharp.IconButton compileButton;
         private System.Windows.Forms.Button button2;
     }
 }

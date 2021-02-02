@@ -70,22 +70,24 @@ namespace IDE_test
             this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.richTextBox1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(75, 114);
+            this.tabControl1.Location = new System.Drawing.Point(320, 195);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(575, 194);
+            this.tabControl1.Size = new System.Drawing.Size(342, 125);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -98,7 +100,7 @@ namespace IDE_test
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(567, 166);
+            this.tabPage1.Size = new System.Drawing.Size(334, 97);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             // 
@@ -143,7 +145,7 @@ namespace IDE_test
             this.richTextBox1.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.richTextBox1.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("richTextBox1.ServiceColors")));
             this.richTextBox1.ShowFoldingLines = true;
-            this.richTextBox1.Size = new System.Drawing.Size(561, 160);
+            this.richTextBox1.Size = new System.Drawing.Size(328, 91);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "adsasdada";
             this.richTextBox1.Zoom = 100;
@@ -460,12 +462,27 @@ namespace IDE_test
             this.helpToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.helpToolStripButton.Text = "He&lp";
             // 
+            // iconPictureBox1
+            // 
+            this.iconPictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.iconPictureBox1.ForeColor = System.Drawing.SystemColors.Control;
+            this.iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Zhihu;
+            this.iconPictureBox1.IconColor = System.Drawing.SystemColors.Control;
+            this.iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconPictureBox1.IconSize = 165;
+            this.iconPictureBox1.Location = new System.Drawing.Point(38, 93);
+            this.iconPictureBox1.Name = "iconPictureBox1";
+            this.iconPictureBox1.Size = new System.Drawing.Size(182, 165);
+            this.iconPictureBox1.TabIndex = 3;
+            this.iconPictureBox1.TabStop = false;
+            // 
             // DesignTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(662, 320);
+            this.Controls.Add(this.iconPictureBox1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.tabControl1);
@@ -483,6 +500,7 @@ namespace IDE_test
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -529,5 +547,6 @@ namespace IDE_test
         private System.Windows.Forms.ToolStripButton pasteToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
     }
 }

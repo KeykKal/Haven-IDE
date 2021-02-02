@@ -21,6 +21,7 @@ namespace AtlusScriptLibrary.Common.Libraries
         static LibraryLookup()
         {
             sLibraries = new List< Library >();
+
             foreach ( var path in Directory.EnumerateFiles( LibraryBaseDirectoryPath, "*.json" ) )
             {
                 var library = ParseLibrary( path );

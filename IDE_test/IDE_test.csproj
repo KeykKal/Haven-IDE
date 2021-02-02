@@ -10,7 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="FCTB" Version="2.16.24" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="FontAwesome.Sharp" Version="5.15.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1-beta1" />
     <PackageReference Include="WindowsAPICodePack-Core">
       <Version>1.1.2</Version>
     </PackageReference>

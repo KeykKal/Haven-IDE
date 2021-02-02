@@ -23,42 +23,106 @@ namespace IDE_test
         {
             get
             {
-                if (!File.Exists(Vars.PROPERTIES))
-                    File.Create(Vars.PROPERTIES);
+                string path = Properties.Settings.Default.CompilerPath;
 
-                using (StreamReader sr = new StreamReader(Vars.PROPERTIES))
+                if (path == null)
                 {
-                    _compilerFilePath = sr.ReadLine();
-                    sr.Close();
+                    OpenFileDialog openFile = new OpenFileDialog
+                    {
+                        Title = "Select the AtlusScriptCompiler.exe .. ",
+                        Multiselect = false,
+                        Filter = "Executable (*.EXE)|*.EXE;|" +
+                        "All files (*.*)|*.*"
+                    };
+
+                    if (openFile.ShowDialog() == DialogResult.OK)
+                    {
+                        path = openFile.FileName;
+                    }
                 }
+
+                _compilerFilePath = path;
+
                 return _compilerFilePath;
             }
             set
             {
                 _compilerFilePath = value;
 
-                if (!File.Exists(Vars.PROPERTIES))
-                    File.Create(Vars.PROPERTIES);
+                if (_compilerFilePath == null)
+                    MessageBox.Show("[ERROR] compilerPath is null");
 
-                File.OpenWrite(_compilerFilePath);
+                Properties.Settings.Default.CompilerPath = _compilerFilePath;
 
-                StreamWriter output = new StreamWriter(Vars.PROPERTIES);
-                output.WriteLine(_compilerFilePath);
-                output.Close();
+                //string path = Properties.Settings.Default.CompilerPath;
+
+                //if (path == null)
+                //{
+                //    OpenFileDialog openFile = new OpenFileDialog
+                //    {
+                //        Title = "Select the AtlusScriptCompiler.exe .. ",
+                //        Multiselect = false,
+                //        Filter = "Executable (*.EXE)|*.EXE;|" +
+                //        "All files (*.*)|*.*"
+                //    };
+
+                //    if (openFile.ShowDialog() == DialogResult.OK)
+                //    {
+                //        path = openFile.FileName;
+                //    }
+                //}
+
             }
         }
 
         private static string _compilerFilePath;
 
-        public static string libraryPath = Path.GetDirectoryName(CompilerFilePath) + "\\Libraries";
+        public static string libraryPath
+        {
+            get
+            {
+                if(CompilerFilePath == "")
+                {
+                    return null;
+                }
+
+                return Path.GetDirectoryName(CompilerFilePath) + "\\Libraries";
+            }
+        } 
 
         public static int selectedGame;
     }
 
     class Design
     {
+        public Design(List<Design> ts)
+        {
+            ts.Add(this);
+            this.codeTextBox.Clear();
+            this.codeTextBox.TextChanged += onTextChanged;
+            this.codeTextBox.ToolTipNeeded += /*new EventHandler<ToolTipNeededEventArgs>*/(this.ToolTipIsNeeded);
+            this.codeTextBox.KeyDown += codeBox_KeyDown;
+            popupMenu = new AutocompleteMenu(codeTextBox)
+            {
+                AutoSize = false,
+                ForeColor = Color.White,
+                //MaximumSize = new Size(200, 300),
+                Width = 5000,
+                BackColor = Color.FromArgb(55, 55, 55),
+                SelectedColor = Color.DeepSkyBlue,
+                SearchPattern = @"[\w\.:=!<>]",
+                AllowTabKey = true,
+                AlwaysShowTooltip = true,
+                ToolTipDuration = 5000,
+            };
+            
+            setUpAutoComplete();
+        }
+
+
         public string path = ""; //ToDo save the file path in here
         public string tabTitle { get; set; }
+
         public bool isSaved
         {
             get
@@ -81,6 +145,7 @@ namespace IDE_test
             }
         }
         bool _isSaved = true;
+        string game;
 
         TabPage tabPage = new TabPage()
         {
@@ -92,26 +157,9 @@ namespace IDE_test
             Size = new System.Drawing.Size(786, 416),
             TabIndex = 0,
         };
+
         public TabControl tabControl { get; private set; }
         static AutocompleteMenu popupMenu;
-
-        public Design(List<Design> ts)
-        {
-            ts.Add(this);
-            this.codeTextBox.Clear();
-            this.codeTextBox.TextChanged += onTextChanged;
-
-            popupMenu = new AutocompleteMenu(codeTextBox)
-            {
-                ForeColor = Color.White,
-                BackColor = Color.FromArgb(55, 55, 55),
-                SelectedColor = Color.DeepSkyBlue,
-                SearchPattern = @"[\w\.:=!<>]",
-                AllowTabKey = true,
-                AlwaysShowTooltip = true,
-            };
-            setUpAutoComplete();
-        }
 
         //ToDo popup only show up if you write at least 2 letters so make that 1
         public void setUpAutoComplete()
@@ -135,7 +183,8 @@ namespace IDE_test
             }
 
             var functionNameList = new List<string>();
-            string game = File.ReadAllLines("Game.txt")[0];
+            
+            game = File.ReadAllLines("Game.txt")[0];
             switch (game)
             {
                 case "SMT Digital Devil Saga":
@@ -159,21 +208,23 @@ namespace IDE_test
                 }
             }
 
+
             List<AutocompleteItem> items = new List<AutocompleteItem>();
             foreach (var item in snippets)
                 items.Add(new SnippetAutocompleteItem(item) { ImageIndex = 1 });
             foreach (var item in declarationSnippets)
                 items.Add(new DeclarationSnippet(item) { ImageIndex = 0 });
             foreach (var item in methods)
-                items.Add(new MethodAutocompleteItem(item) { ImageIndex = 2 });
+                items.Add(new MethodAutocompleteItem(item) { ImageIndex = 2, ToolTipText = "WALUIGIIIIIIIIIIIIII"});
             foreach (var item in keywords)
-                items.Add(new AutocompleteItem(item));
+                items.Add(new AutocompleteItem(item) { });
             foreach (var item in functionNameList)
-                items.Add(new AutocompleteItem(item));
+                items.Add(new AutocompleteItem(item) { ToolTipTitle = item, ToolTipText = ToolTip(item, library) });
+            
 
 
             items.Add(new InsertSpaceSnippet());
-            items.Add(new InsertSpaceSnippet(@"^(\w+)([=<>!:]+)(\w+)$"));
+            items.Add(new InsertSpaceSnippet(@"(\w+)([=<>!:]+)(\w+)$"));
             items.Add(new InsertEnterSnippet());
 
             popupMenu.Items.SetAutocompleteItems(items);
@@ -183,6 +234,84 @@ namespace IDE_test
         {
             setUpAutoComplete();
         }
+
+        private void ToolTipIsNeeded(object sender, ToolTipNeededEventArgs e)
+        {
+            if (String.IsNullOrEmpty(e.HoveredWord)) return;
+
+            var library = LibraryLookup.GetLibrary(game);
+
+            
+            var range = new FastColoredTextBoxNS.Range(sender as FastColoredTextBox, e.Place, e.Place);
+            string hoveredWord = range.GetFragment("[^ (  ]").Text;
+
+            e.ToolTipTitle = hoveredWord;
+
+            for (int i = 0; i < library.FlowScriptModules.Count; i++)
+            {
+                for(int j = 0; j < library.FlowScriptModules[i].Functions.Count; j++)
+                {
+                    e.ToolTipText = ToolTip(hoveredWord, library) + "'";
+                }
+            }
+
+
+
+        }
+
+        private string ToolTip(string word, Library library)
+        {
+
+            string toolTip = "";
+            for (int i = 0; i < library.FlowScriptModules.Count; i++)
+            {
+                for (int j = 0; j < library.FlowScriptModules[i].Functions.Count; j++)
+                {
+                    //MessageBox.Show(library.FlowScriptModules[i].Functions[j].Description);
+
+                    if (library.FlowScriptModules[i].Functions[j].Name == word)
+                    {
+
+                        string description = library.FlowScriptModules[i].Functions[j].Description;
+                        string returnTyp = library.FlowScriptModules[i].Functions[j].ReturnType;
+                        int index = library.FlowScriptModules[i].Functions[j].Index;
+                        var parameters = library.FlowScriptModules[i].Functions[j].Parameters;
+
+                        toolTip = Code.addToString(toolTip, "Description: " + description + "\n");
+                        toolTip = Code.addToString(toolTip, "ReturnTyp: " + returnTyp + "\n");
+                        toolTip = Code.addToString(toolTip, "Index: " + index);
+
+                        foreach (var parameter in parameters)
+                        {
+                            toolTip = Code.addToString(toolTip, "\n//////\n");
+                            toolTip = Code.addToString(toolTip, "Name: " + parameter.Name + ": \n");
+                            toolTip = Code.addToString(toolTip, "Type: " + parameter.Type + "\n");
+                            toolTip = Code.addToString(toolTip, "Description: " + parameter.Description + "\n");
+                        }
+                        toolTip = Code.addToString(toolTip, "\n /////////////////");
+                        return toolTip;
+                    }
+                }
+            }
+
+            return "";
+        }
+        private string ToolTip(string word)
+        {
+            var library = LibraryLookup.GetLibrary(game);
+            return ToolTip(word, library);
+        }
+
+        private void codeBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == (Keys.Space | Keys.Control))
+            {
+                //forced show (MinFragmentLength will be ignored)
+                popupMenu.Show(true);
+                e.Handled = true;
+            }
+        }
+
 
         void updateValues()
         {
@@ -525,11 +654,29 @@ namespace IDE_test
             return false;
         }
     
-    }
+        public static string addToString(string original, string toAdd)
+        {
+            return original + toAdd;
+        }
 
-    class Vars
-    {
-        public const string PROPERTIES = "Properties.txt";
+        public static string getStringFromParameter(List<FlowScriptModuleParameter> parameters)
+        {
+            //foreach(var parameter in parameters)
+            //{
+            //    parameter
+            //}
+            
+            string parameterN = "";
+            string parameterT = "";
+            string parameterD = "";
+            //foreach (var parameter in parameters.ToArray())
+            //{
+            //    parameterN = Code.getStringFromParameter(parameter);
+            //}
+
+
+            return parameterN + ": Type: " + parameterT + ", Description: " + parameterD;
+        }
     }
 
     #region not mine
