@@ -30,16 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(test_IDE));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.settingsButon = new System.Windows.Forms.ToolStripButton();
-            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.cutToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.undoButton = new System.Windows.Forms.ToolStripButton();
-            this.redoButton2 = new System.Windows.Forms.ToolStripButton();
+            this.newToolStripButton = new FontAwesome.Sharp.IconToolStripButton();
+            this.settingsButon = new FontAwesome.Sharp.IconToolStripButton();
+            this.openToolStripButton = new FontAwesome.Sharp.IconToolStripButton();
+            this.saveToolStripButton = new FontAwesome.Sharp.IconToolStripButton();
+            this.cutToolStripButton = new FontAwesome.Sharp.IconToolStripButton();
+            this.copyToolStripButton = new FontAwesome.Sharp.IconToolStripButton();
+            this.pasteToolStripButton = new FontAwesome.Sharp.IconToolStripButton();
+            this.undoButton = new FontAwesome.Sharp.IconToolStripButton();
+            this.redoButton2 = new FontAwesome.Sharp.IconToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.debugStripButton1 = new FontAwesome.Sharp.IconToolStripButton();
             this.gameComboBox2 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
@@ -59,15 +60,16 @@
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TestWindowButton = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.button1 = new System.Windows.Forms.Button();
+            this.closeTabButton = new FontAwesome.Sharp.IconButton();
             this.compileButton = new FontAwesome.Sharp.IconButton();
-            this.button2 = new System.Windows.Forms.Button();
+            this.decompileButton = new FontAwesome.Sharp.IconButton();
             this.toolStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
             // 
+            this.toolStrip1.AutoSize = false;
             this.toolStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -80,92 +82,127 @@
             this.pasteToolStripButton,
             this.undoButton,
             this.redoButton2,
-            this.toolStripSeparator});
+            this.toolStripSeparator,
+            this.debugStripButton1});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 30);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(627, 23);
+            this.toolStrip1.Size = new System.Drawing.Size(627, 30);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // newToolStripButton
             // 
             this.newToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
+            this.newToolStripButton.IconChar = FontAwesome.Sharp.IconChar.File;
+            this.newToolStripButton.IconColor = System.Drawing.Color.Orange;
+            this.newToolStripButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.newToolStripButton.IconSize = 25;
+            this.newToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripButton.Name = "newToolStripButton";
-            this.newToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.newToolStripButton.Size = new System.Drawing.Size(29, 29);
             this.newToolStripButton.Text = "&New";
             this.newToolStripButton.Click += new System.EventHandler(this.newToolStripButton_Click);
             // 
             // settingsButon
             // 
+            this.settingsButon.AutoSize = false;
             this.settingsButon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.settingsButon.Image = ((System.Drawing.Image)(resources.GetObject("settingsButon.Image")));
+            this.settingsButon.IconChar = FontAwesome.Sharp.IconChar.Cogs;
+            this.settingsButon.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(100)))), ((int)(((byte)(50)))));
+            this.settingsButon.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.settingsButon.IconSize = 23;
+            this.settingsButon.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.settingsButon.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.settingsButon.Name = "settingsButon";
-            this.settingsButon.Size = new System.Drawing.Size(23, 20);
+            this.settingsButon.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.settingsButon.Size = new System.Drawing.Size(29, 29);
             this.settingsButon.Text = "settings";
             this.settingsButon.Click += new System.EventHandler(this.settingsButon_Click);
             // 
             // openToolStripButton
             // 
             this.openToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
+            this.openToolStripButton.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
+            this.openToolStripButton.IconColor = System.Drawing.Color.Navy;
+            this.openToolStripButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.openToolStripButton.IconSize = 25;
+            this.openToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.openToolStripButton.Size = new System.Drawing.Size(29, 29);
             this.openToolStripButton.Text = "&Open";
             this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
             // 
             // saveToolStripButton
             // 
             this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
+            this.saveToolStripButton.IconChar = FontAwesome.Sharp.IconChar.Save;
+            this.saveToolStripButton.IconColor = System.Drawing.Color.YellowGreen;
+            this.saveToolStripButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.saveToolStripButton.IconSize = 25;
+            this.saveToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.saveToolStripButton.Size = new System.Drawing.Size(29, 29);
             this.saveToolStripButton.Text = "&Save";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
             // cutToolStripButton
             // 
             this.cutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.cutToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("cutToolStripButton.Image")));
+            this.cutToolStripButton.IconChar = FontAwesome.Sharp.IconChar.Cut;
+            this.cutToolStripButton.IconColor = System.Drawing.Color.Crimson;
+            this.cutToolStripButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.cutToolStripButton.IconSize = 25;
+            this.cutToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cutToolStripButton.Name = "cutToolStripButton";
-            this.cutToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.cutToolStripButton.Size = new System.Drawing.Size(29, 29);
             this.cutToolStripButton.Text = "C&ut";
             this.cutToolStripButton.Click += new System.EventHandler(this.cutToolStripButton_Click);
             // 
             // copyToolStripButton
             // 
             this.copyToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.copyToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripButton.Image")));
+            this.copyToolStripButton.IconChar = FontAwesome.Sharp.IconChar.Copy;
+            this.copyToolStripButton.IconColor = System.Drawing.Color.DarkTurquoise;
+            this.copyToolStripButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.copyToolStripButton.IconSize = 25;
+            this.copyToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.copyToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyToolStripButton.Name = "copyToolStripButton";
-            this.copyToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.copyToolStripButton.Size = new System.Drawing.Size(29, 29);
             this.copyToolStripButton.Text = "&Copy";
             this.copyToolStripButton.Click += new System.EventHandler(this.copyToolStripButton_Click);
             // 
             // pasteToolStripButton
             // 
             this.pasteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pasteToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pasteToolStripButton.Image")));
+            this.pasteToolStripButton.IconChar = FontAwesome.Sharp.IconChar.Paste;
+            this.pasteToolStripButton.IconColor = System.Drawing.Color.DarkOrange;
+            this.pasteToolStripButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.pasteToolStripButton.IconSize = 25;
+            this.pasteToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.pasteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.pasteToolStripButton.Name = "pasteToolStripButton";
-            this.pasteToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.pasteToolStripButton.Size = new System.Drawing.Size(29, 29);
             this.pasteToolStripButton.Text = "&Paste";
             this.pasteToolStripButton.Click += new System.EventHandler(this.pasteToolStripButton_Click);
             // 
             // undoButton
             // 
             this.undoButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.undoButton.Image = ((System.Drawing.Image)(resources.GetObject("undoButton.Image")));
+            this.undoButton.IconChar = FontAwesome.Sharp.IconChar.Undo;
+            this.undoButton.IconColor = System.Drawing.Color.Brown;
+            this.undoButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.undoButton.IconSize = 25;
+            this.undoButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.undoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.undoButton.Name = "undoButton";
-            this.undoButton.Size = new System.Drawing.Size(23, 20);
+            this.undoButton.Size = new System.Drawing.Size(29, 29);
             this.undoButton.Text = "toolStripButton2";
             this.undoButton.ToolTipText = "undo";
             this.undoButton.Click += new System.EventHandler(this.undoButton_Click);
@@ -173,10 +210,14 @@
             // redoButton2
             // 
             this.redoButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.redoButton2.Image = ((System.Drawing.Image)(resources.GetObject("redoButton2.Image")));
+            this.redoButton2.IconChar = FontAwesome.Sharp.IconChar.Redo;
+            this.redoButton2.IconColor = System.Drawing.Color.SeaGreen;
+            this.redoButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.redoButton2.IconSize = 25;
+            this.redoButton2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.redoButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.redoButton2.Name = "redoButton2";
-            this.redoButton2.Size = new System.Drawing.Size(23, 20);
+            this.redoButton2.Size = new System.Drawing.Size(29, 29);
             this.redoButton2.Text = "toolStripButton2";
             this.redoButton2.ToolTipText = "redo";
             this.redoButton2.Click += new System.EventHandler(this.redoButton_Click);
@@ -185,6 +226,19 @@
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(6, 23);
+            // 
+            // debugStripButton1
+            // 
+            this.debugStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.debugStripButton1.IconChar = FontAwesome.Sharp.IconChar.Carrot;
+            this.debugStripButton1.IconColor = System.Drawing.Color.OrangeRed;
+            this.debugStripButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.debugStripButton1.IconSize = 25;
+            this.debugStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.debugStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.debugStripButton1.Name = "debugStripButton1";
+            this.debugStripButton1.Size = new System.Drawing.Size(29, 29);
+            this.debugStripButton1.ToolTipText = "WIP";
             // 
             // gameComboBox2
             // 
@@ -215,10 +269,10 @@
             // tabControl1
             // 
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 47);
+            this.tabControl1.Location = new System.Drawing.Point(0, 60);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(627, 288);
+            this.tabControl1.Size = new System.Drawing.Size(627, 275);
             this.tabControl1.TabIndex = 5;
             // 
             // fileToolStripMenuItem2
@@ -231,7 +285,7 @@
             this.exitToolStripMenuItem2});
             this.fileToolStripMenuItem2.ForeColor = System.Drawing.SystemColors.Control;
             this.fileToolStripMenuItem2.Name = "fileToolStripMenuItem2";
-            this.fileToolStripMenuItem2.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem2.Size = new System.Drawing.Size(37, 26);
             this.fileToolStripMenuItem2.Text = "&File";
             // 
             // newToolStripMenuItem2
@@ -295,7 +349,7 @@
             this.selectAllToolStripMenuItem});
             this.editToolStripMenuItem2.ForeColor = System.Drawing.SystemColors.Control;
             this.editToolStripMenuItem2.Name = "editToolStripMenuItem2";
-            this.editToolStripMenuItem2.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem2.Size = new System.Drawing.Size(39, 26);
             this.editToolStripMenuItem2.Text = "&Edit";
             // 
             // undoToolStripMenuItem
@@ -368,13 +422,14 @@
             // 
             this.TestWindowButton.ForeColor = System.Drawing.SystemColors.Control;
             this.TestWindowButton.Name = "TestWindowButton";
-            this.TestWindowButton.Size = new System.Drawing.Size(86, 20);
+            this.TestWindowButton.Size = new System.Drawing.Size(86, 26);
             this.TestWindowButton.Text = "Test Window";
             this.TestWindowButton.Visible = false;
             this.TestWindowButton.Click += new System.EventHandler(this.TestWindowButton_Click_1);
             // 
             // menuStrip2
             // 
+            this.menuStrip2.AutoSize = false;
             this.menuStrip2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem2,
@@ -383,24 +438,28 @@
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip2.Size = new System.Drawing.Size(627, 24);
+            this.menuStrip2.Size = new System.Drawing.Size(627, 30);
             this.menuStrip2.TabIndex = 0;
             this.menuStrip2.Text = "menuStrip2";
             // 
-            // button1
+            // closeTabButton
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.ForeColor = System.Drawing.Color.Red;
-            this.button1.Location = new System.Drawing.Point(596, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(26, 27);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "X";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.closeTabButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.closeTabButton.AutoEllipsis = true;
+            this.closeTabButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.closeTabButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeTabButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.closeTabButton.ForeColor = System.Drawing.Color.Red;
+            this.closeTabButton.IconChar = FontAwesome.Sharp.IconChar.Minus;
+            this.closeTabButton.IconColor = System.Drawing.Color.Red;
+            this.closeTabButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.closeTabButton.IconSize = 25;
+            this.closeTabButton.Location = new System.Drawing.Point(594, 6);
+            this.closeTabButton.Name = "closeTabButton";
+            this.closeTabButton.Size = new System.Drawing.Size(33, 29);
+            this.closeTabButton.TabIndex = 6;
+            this.closeTabButton.UseVisualStyleBackColor = false;
+            this.closeTabButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // compileButton
             // 
@@ -408,29 +467,37 @@
             this.compileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(73)))), ((int)(((byte)(60)))));
             this.compileButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.compileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.compileButton.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.compileButton.IconChar = FontAwesome.Sharp.IconChar.Upload;
             this.compileButton.IconColor = System.Drawing.Color.Black;
             this.compileButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.compileButton.Location = new System.Drawing.Point(235, 12);
+            this.compileButton.IconSize = 20;
+            this.compileButton.Location = new System.Drawing.Point(205, 2);
             this.compileButton.Name = "compileButton";
-            this.compileButton.Size = new System.Drawing.Size(69, 23);
+            this.compileButton.Size = new System.Drawing.Size(87, 28);
             this.compileButton.TabIndex = 7;
             this.compileButton.Text = "Compile";
+            this.compileButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.compileButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.compileButton.UseVisualStyleBackColor = false;
             this.compileButton.Click += new System.EventHandler(this.compileButton_Click);
             // 
-            // button2
+            // decompileButton
             // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(310, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Decompile";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.decompileButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.decompileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.decompileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.decompileButton.IconChar = FontAwesome.Sharp.IconChar.Download;
+            this.decompileButton.IconColor = System.Drawing.Color.Black;
+            this.decompileButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.decompileButton.IconSize = 20;
+            this.decompileButton.Location = new System.Drawing.Point(298, 2);
+            this.decompileButton.Name = "decompileButton";
+            this.decompileButton.Size = new System.Drawing.Size(97, 28);
+            this.decompileButton.TabIndex = 8;
+            this.decompileButton.Text = "Decompile";
+            this.decompileButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.decompileButton.UseVisualStyleBackColor = false;
+            this.decompileButton.Click += new System.EventHandler(this.button2_Click);
             // 
             // test_IDE
             // 
@@ -438,9 +505,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(627, 335);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.decompileButton);
             this.Controls.Add(this.compileButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.closeTabButton);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.gameComboBox2);
@@ -466,25 +533,25 @@
 
         #endregion
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton newToolStripButton;
-        private System.Windows.Forms.ToolStripButton openToolStripButton;
-        private System.Windows.Forms.ToolStripButton saveToolStripButton;
+        private FontAwesome.Sharp.IconToolStripButton newToolStripButton;
+        private FontAwesome.Sharp.IconToolStripButton openToolStripButton;
+        private FontAwesome.Sharp.IconToolStripButton saveToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
-        private System.Windows.Forms.ToolStripButton cutToolStripButton;
-        private System.Windows.Forms.ToolStripButton copyToolStripButton;
-        private System.Windows.Forms.ToolStripButton pasteToolStripButton;
+        private FontAwesome.Sharp.IconToolStripButton cutToolStripButton;
+        private FontAwesome.Sharp.IconToolStripButton copyToolStripButton;
+        private FontAwesome.Sharp.IconToolStripButton pasteToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton undoButton;
-        private System.Windows.Forms.ToolStripButton redoButton2;
+        private FontAwesome.Sharp.IconToolStripButton undoButton;
+        private FontAwesome.Sharp.IconToolStripButton redoButton2;
         private System.Windows.Forms.ComboBox gameComboBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripButton settingsButon;
+        private FontAwesome.Sharp.IconToolStripButton settingsButon;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.ToolStripButton copyToolStripButton1;
-        private System.Windows.Forms.ToolStripButton pasteToolStripButton1;
+        private FontAwesome.Sharp.IconToolStripButton copyToolStripButton1;
+        private FontAwesome.Sharp.IconToolStripButton pasteToolStripButton1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton helpToolStripButton;
+        private FontAwesome.Sharp.IconToolStripButton helpToolStripButton;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem2;
@@ -501,10 +568,10 @@
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem TestWindowButton;
         private System.Windows.Forms.MenuStrip menuStrip2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button s;
+        private FontAwesome.Sharp.IconButton closeTabButton;
         private FontAwesome.Sharp.IconButton compileButton;
-        private System.Windows.Forms.Button button2;
+        private FontAwesome.Sharp.IconButton decompileButton;
+        private FontAwesome.Sharp.IconToolStripButton debugStripButton1;
     }
 }
 

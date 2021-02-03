@@ -210,6 +210,8 @@ namespace IDE_test
 
 
             List<AutocompleteItem> items = new List<AutocompleteItem>();
+            foreach (var item in functionNameList)
+                items.Add(new AutocompleteItem(item) { ToolTipTitle = item, ToolTipText = ToolTip(item, library) });
             foreach (var item in snippets)
                 items.Add(new SnippetAutocompleteItem(item) { ImageIndex = 1 });
             foreach (var item in declarationSnippets)
@@ -218,8 +220,6 @@ namespace IDE_test
                 items.Add(new MethodAutocompleteItem(item) { ImageIndex = 2, ToolTipText = "WALUIGIIIIIIIIIIIIII"});
             foreach (var item in keywords)
                 items.Add(new AutocompleteItem(item) { });
-            foreach (var item in functionNameList)
-                items.Add(new AutocompleteItem(item) { ToolTipTitle = item, ToolTipText = ToolTip(item, library) });
             
 
 
@@ -240,10 +240,9 @@ namespace IDE_test
             if (String.IsNullOrEmpty(e.HoveredWord)) return;
 
             var library = LibraryLookup.GetLibrary(game);
-
             
             var range = new FastColoredTextBoxNS.Range(sender as FastColoredTextBox, e.Place, e.Place);
-            string hoveredWord = range.GetFragment("[^ (  ]").Text;
+            string hoveredWord = range.GetFragment("[^ ( \n \r ]").Text;
 
             e.ToolTipTitle = hoveredWord;
 
@@ -254,8 +253,6 @@ namespace IDE_test
                     e.ToolTipText = ToolTip(hoveredWord, library) + "'";
                 }
             }
-
-
 
         }
 
@@ -309,6 +306,10 @@ namespace IDE_test
                 //forced show (MinFragmentLength will be ignored)
                 popupMenu.Show(true);
                 e.Handled = true;
+            }
+            if(e.KeyCode == Keys.Escape)
+            {
+                popupMenu.Close();
             }
         }
 
@@ -377,7 +378,7 @@ namespace IDE_test
             }
         }
 
-        public static void RemoveAll(List<Design> ts)
+        public static void RemoveAll(List<Design> ts, FormClosingEventArgs e)
         {
             foreach (var design in ts.ToArray())
             {
@@ -394,6 +395,10 @@ namespace IDE_test
                             design.tabControl.TabPages.Remove(design.tabControl.SelectedTab);
                             ts.Remove(design);
                             break;
+                        case DialogResult.Cancel:
+                            e.Cancel = true;
+                            return;
+                            
                     }
                 }
             }

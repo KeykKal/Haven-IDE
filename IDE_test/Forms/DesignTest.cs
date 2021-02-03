@@ -60,5 +60,9 @@ namespace IDE_test
             tabControl1.TabPages.Remove(tabControl1.SelectedTab);
         }
 
+        private void iconPictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

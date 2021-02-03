@@ -203,7 +203,7 @@ namespace IDE_test
 
         private void test_IDE_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Design.RemoveAll(designsList);   
+            Design.RemoveAll(designsList, e);   
         }
 
         private void compileButton_Click(object sender, EventArgs e)
@@ -238,5 +238,11 @@ namespace IDE_test
                 }
             }
         }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            new Settings().Show();
+        }
+        
     }
 }
