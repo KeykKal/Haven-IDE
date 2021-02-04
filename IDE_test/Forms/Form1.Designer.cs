@@ -454,7 +454,7 @@
             this.closeTabButton.IconColor = System.Drawing.Color.Red;
             this.closeTabButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.closeTabButton.IconSize = 25;
-            this.closeTabButton.Location = new System.Drawing.Point(594, 6);
+            this.closeTabButton.Location = new System.Drawing.Point(594, 12);
             this.closeTabButton.Name = "closeTabButton";
             this.closeTabButton.Size = new System.Drawing.Size(33, 29);
             this.closeTabButton.TabIndex = 6;

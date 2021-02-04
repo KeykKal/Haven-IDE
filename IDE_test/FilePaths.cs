@@ -95,9 +95,12 @@ namespace IDE_test
 
     class Design
     {
+        public static List<Design> designList = new List<Design>();
+
         public Design(List<Design> ts)
         {
             ts.Add(this);
+            designList = ts;
             this.codeTextBox.Clear();
             this.codeTextBox.TextChanged += onTextChanged;
             this.codeTextBox.ToolTipNeeded += /*new EventHandler<ToolTipNeededEventArgs>*/(this.ToolTipIsNeeded);
@@ -437,7 +440,7 @@ namespace IDE_test
             //Code.Save(this);
         }
 
-        void onTextChanged(object sender, TextChangedEventArgs e)
+        public void onTextChanged(object sender, TextChangedEventArgs e)
         {
             isSaved = false;
             syntaxHighlights(e, this.codeTextBox);
@@ -451,20 +454,32 @@ namespace IDE_test
         static MarkerStyle SameWordsStyle = new MarkerStyle(new SolidBrush(Color.FromArgb(40, Color.Gray)));
 
         //Brushes.OrangeRed also looks great
-        static TextStyle Styl = new TextStyle(Brushes.DeepSkyBlue, null, FontStyle.Regular);
-        static TextStyle singelLineCommentStyl = new TextStyle(Brushes.Gray, null, FontStyle.Regular);
-        static TextStyle MultiLineCommentStyl = new TextStyle(Brushes.Green, null, FontStyle.Regular);
-        static TextStyle NumberStyl = new TextStyle(Brushes.Blue, null, FontStyle.Regular);
-        static TextStyle stringstyl = new TextStyle(Brushes.DarkSeaGreen, null, FontStyle.Regular);
-        static TextStyle MSGStyl = new TextStyle(Brushes.DeepSkyBlue, null, FontStyle.Regular);
+        //BUGGGG
+           static TextStyle NumberStyl = new TextStyle(new SolidBrush(Properties.Settings.Default.NumberColor), null, FontStyle.Regular); //check
+           static TextStyle Styl = new TextStyle(new SolidBrush(Properties.Settings.Default.baseColor), null, FontStyle.Regular); //check
+           static TextStyle singelLineCommentStyl = new TextStyle(new SolidBrush(Properties.Settings.Default.singelLineCommentColor), null, FontStyle.Regular); //check
+           static TextStyle MultiLineCommentStyl = new TextStyle(new SolidBrush(Properties.Settings.Default.MultiLineCommentColor), null, FontStyle.Regular); //check
+           static TextStyle stringstyl = new TextStyle(new SolidBrush(Properties.Settings.Default.stringColor), null, FontStyle.Regular); //check
+           static TextStyle MSGStyl = new TextStyle(new SolidBrush(Properties.Settings.Default.MSGColor), null, FontStyle.Regular);//check
         public static void syntaxHighlights(TextChangedEventArgs e, FastColoredTextBox fctb)
         {
+            NumberStyl.ForeBrush = new SolidBrush(Properties.Settings.Default.NumberColor);
+            Styl.ForeBrush = new SolidBrush(Properties.Settings.Default.baseColor);
+            singelLineCommentStyl.ForeBrush = new SolidBrush(Properties.Settings.Default.singelLineCommentColor);
+            MultiLineCommentStyl.ForeBrush = new SolidBrush(Properties.Settings.Default.MultiLineCommentColor);
+            stringstyl.ForeBrush = new SolidBrush(Properties.Settings.Default.stringColor);
+            MSGStyl.ForeBrush = new SolidBrush(Properties.Settings.Default.MSGColor);
+
             fctb.LeftBracket = '(';
             fctb.RightBracket = ')';
             fctb.LeftBracket2 = '\x0';
             fctb.RightBracket2 = '\x0';
             //clear style of changed range
-            e.ChangedRange.ClearStyle(Styl, BoldStyle, GreenStyle, BrownStyle, stringstyl, NumberStyl, singelLineCommentStyl, MultiLineCommentStyl);
+            e.ChangedRange.ClearStyle(Styl, BoldStyle, stringstyl, NumberStyl, singelLineCommentStyl, MultiLineCommentStyl, MSGStyl);
+
+            //fctb.ClearStylesBuffer();
+            //fctb.Range.ClearStyle(Styl, BoldStyle, stringstyl, NumberStyl, singelLineCommentStyl, MultiLineCommentStyl);
+
 
             //string highlighting
             e.ChangedRange.SetStyle(stringstyl, @"""""|@""""|''|@"".*?""|(?<!@)(?<range>"".*?[^\\]"")|'.*?[^\\]'");
@@ -489,6 +504,61 @@ namespace IDE_test
             e.ChangedRange.SetFoldingMarkers(@"#region\b", @"#endregion\b");//allow to collapse #region blocks
             e.ChangedRange.SetFoldingMarkers(@"/\*", @"\*/");//allow to collapse comment block
         }
+
+        public void clearHighlights(object sender, TextChangedEventArgs e)
+        {
+            codeTextBox.ClearStylesBuffer();
+            //codeTextBox.Range.ClearStyle(StyleIndex.All);
+
+            syntaxHighlights(e, this.codeTextBox);
+            codeTextBox.AutoIndentNeeded -= fctb_AutoIndentNeeded;
+
+            codeTextBox.Language = Language.Custom;
+            codeTextBox.CommentPrefix = "//";
+            codeTextBox.AutoIndentNeeded += fctb_AutoIndentNeeded;
+            //call OnTextChanged for refresh syntax highlighting
+            codeTextBox.OnTextChanged();
+        }
+        private void fctb_AutoIndentNeeded(object sender, AutoIndentEventArgs args)
+        {
+            //block {}
+            if (Regex.IsMatch(args.LineText, @"^[^""']*\{.*\}[^""']*$"))
+                return;
+            //start of block {}
+            if (Regex.IsMatch(args.LineText, @"^[^""']*\{"))
+            {
+                args.ShiftNextLines = args.TabLength;
+                return;
+            }
+            //end of block {}
+            if (Regex.IsMatch(args.LineText, @"}[^""']*$"))
+            {
+                args.Shift = -args.TabLength;
+                args.ShiftNextLines = -args.TabLength;
+                return;
+            }
+            //label
+            if (Regex.IsMatch(args.LineText, @"^\s*\w+\s*:\s*($|//)") &&
+                !Regex.IsMatch(args.LineText, @"^\s*default\s*:"))
+            {
+                args.Shift = -args.TabLength;
+                return;
+            }
+            //some statements: case, default
+            if (Regex.IsMatch(args.LineText, @"^\s*(case|default)\b.*:\s*($|//)"))
+            {
+                args.Shift = -args.TabLength / 2;
+                return;
+            }
+            //is unclosed operator in previous line ?
+            if (Regex.IsMatch(args.PrevLineText, @"^\s*(if|for|foreach|while|[\}\s]*else)\b[^{]*$"))
+                if (!Regex.IsMatch(args.PrevLineText, @"(;\s*$)|(;\s*//)"))//operator is unclosed
+                {
+                    args.Shift = args.TabLength;
+                    return;
+                }
+        }
+
     }
 
     class Code

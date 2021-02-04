@@ -82,5 +82,77 @@ namespace IDE_test.Properties {
                 this["CompilerPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("128, 128, 255")]
+        public global::System.Drawing.Color NumberColor {
+            get {
+                return ((global::System.Drawing.Color)(this["NumberColor"]));
+            }
+            set {
+                this["NumberColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 192, 0")]
+        public global::System.Drawing.Color baseColor {
+            get {
+                return ((global::System.Drawing.Color)(this["baseColor"]));
+            }
+            set {
+                this["baseColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DarkGray")]
+        public global::System.Drawing.Color singelLineCommentColor {
+            get {
+                return ((global::System.Drawing.Color)(this["singelLineCommentColor"]));
+            }
+            set {
+                this["singelLineCommentColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("128, 255, 128")]
+        public global::System.Drawing.Color MultiLineCommentColor {
+            get {
+                return ((global::System.Drawing.Color)(this["MultiLineCommentColor"]));
+            }
+            set {
+                this["MultiLineCommentColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yellow")]
+        public global::System.Drawing.Color stringColor {
+            get {
+                return ((global::System.Drawing.Color)(this["stringColor"]));
+            }
+            set {
+                this["stringColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 192")]
+        public global::System.Drawing.Color MSGColor {
+            get {
+                return ((global::System.Drawing.Color)(this["MSGColor"]));
+            }
+            set {
+                this["MSGColor"] = value;
+            }
+        }
     }
 }
