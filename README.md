@@ -1,3 +1,6 @@
+# Update
+It should be the same as the last version just with better visuals and customizable syntax Highlighting
+
 # Haven-IDE
 a cutsom IDE made for persona modding purposes
 
@@ -6,7 +9,7 @@ I wrote this code using several example codes writen <a href="https://github.com
 so you need to have this file additionally.
 
 # Set up
-1.you download and extract both the AtlusScriptTools a the <a href="https://github.com/KeykKal/Haven-IDE/releases">release</a>
+1.you download and extract both the <a href="https://github.com/ShrineFox/Atlus-Script-Tools">Atlus Script Tools</a> and the <a href="https://github.com/KeykKal/Haven-IDE/releases">release</a>
 
 2.you open the extracted HavenIDE.exe
 
@@ -14,15 +17,18 @@ so you need to have this file additionally.
 
 3.Get an error message and rickrolled 4 times because i did't have the time and I was to lazy to search for Icons or even make one so i picked a random picture. Jap feels like home.
 
-![G02](https://user-images.githubusercontent.com/73116439/106472908-73317500-64a3-11eb-839a-1db7a8d1c250.PNG)
+![IDE01](https://user-images.githubusercontent.com/73116439/107027615-ada15780-67ac-11eb-8684-97767355d42e.PNG)
 
-4.press on the settings button right next to the new button yes the one with the handsome guy in the picture 
 
-![G03](https://user-images.githubusercontent.com/73116439/106472841-614fd200-64a3-11eb-9bf8-b3eeb165cde5.PNG)
+4.press on the settings button.
+
+![IDE02](https://user-images.githubusercontent.com/73116439/107027750-e17c7d00-67ac-11eb-93fc-4f854fa8ee50.PNG)
+
 
 5.Get welcommed by Settings window and press the button to select a compiler
 
-![G04](https://user-images.githubusercontent.com/73116439/106473137-b7bd1080-64a3-11eb-995c-3a51b0bf9b37.PNG)
+![IDE03](https://user-images.githubusercontent.com/73116439/107027904-12f54880-67ad-11eb-9fe0-7a1684d702b1.PNG)
+
 
 6.select the AtlusScriptCompiler and you are good to go the other things are optional 
 
