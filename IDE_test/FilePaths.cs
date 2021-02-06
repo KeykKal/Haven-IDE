@@ -310,14 +310,27 @@ namespace IDE_test
                 popupMenu.Show(true);
                 e.Handled = true;
             }
-            if(e.KeyCode == Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
             {
                 popupMenu.Close();
+            }
+            if (e.KeyData == (Keys.K | Keys.Control))
+            {
+                codeTextBox.InsertLinePrefix("//");
+            }
+            if (e.KeyData == (Keys.K | Keys.Control | Keys.Shift))
+            {
+                codeTextBox.RemoveLinePrefix("//");
+            }
+            if (e.KeyData == (Keys.Control | Keys.P))
+            {
+                codeTextBox.CollapseAllFoldingBlocks();
+                codeTextBox.ExpandAllFoldingBlocks();
             }
         }
 
 
-        void updateValues()
+        public void updateValues()
         {
             this.tabPage.Text = this.tabTitle;
         }
@@ -786,7 +799,10 @@ namespace IDE_test
             else
             {
                 if (SaveAs(design))
+                {
+                    design.updateValues();
                     return true;
+                }
 
                 return false;
             }
@@ -797,7 +813,7 @@ namespace IDE_test
             //ToDo Change that
             SaveFileDialog savefile = new SaveFileDialog()
             {
-                Filter = "DataType (*.BF;*.BMD;*.FLOW;*.MSG)|*.BF;*.BMG;*.FLOW;*.MSG"
+                Filter = "DataType (*.BF;*.BMD;*.FLOW;*.MSG)|*.FLOW;*.BF;*.BMG;*.MSG"
             };
 
             savefile.Title = "Save file as.. ";

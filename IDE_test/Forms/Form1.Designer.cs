@@ -58,6 +58,8 @@
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.collabsAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.expandAllBlocks = new System.Windows.Forms.ToolStripMenuItem();
             this.TestWindowButton = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.closeTabButton = new FontAwesome.Sharp.IconButton();
@@ -347,7 +349,9 @@
             this.cutToolStripMenuItem,
             this.copyToolStripMenuItem,
             this.pasteToolStripMenuItem,
-            this.selectAllToolStripMenuItem});
+            this.selectAllToolStripMenuItem,
+            this.collabsAll,
+            this.expandAllBlocks});
             this.editToolStripMenuItem2.ForeColor = System.Drawing.SystemColors.Control;
             this.editToolStripMenuItem2.Name = "editToolStripMenuItem2";
             this.editToolStripMenuItem2.Size = new System.Drawing.Size(39, 26);
@@ -418,6 +422,24 @@
             this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.selectAllToolStripMenuItem.Text = "Select &All";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            // 
+            // collabsAll
+            // 
+            this.collabsAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.collabsAll.ForeColor = System.Drawing.SystemColors.Control;
+            this.collabsAll.Name = "collabsAll";
+            this.collabsAll.Size = new System.Drawing.Size(166, 22);
+            this.collabsAll.Text = "Collabs all Blocks";
+            this.collabsAll.Click += new System.EventHandler(this.collabsAll_Click);
+            // 
+            // expandAllBlocks
+            // 
+            this.expandAllBlocks.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.expandAllBlocks.ForeColor = System.Drawing.SystemColors.Control;
+            this.expandAllBlocks.Name = "expandAllBlocks";
+            this.expandAllBlocks.Size = new System.Drawing.Size(166, 22);
+            this.expandAllBlocks.Text = "Expand all blocks";
+            this.expandAllBlocks.Click += new System.EventHandler(this.expandAllBlocks_Click);
             // 
             // TestWindowButton
             // 
@@ -597,6 +619,8 @@
         private FontAwesome.Sharp.IconButton decompileButton;
         private FontAwesome.Sharp.IconToolStripButton debugStripButton1;
         private FontAwesome.Sharp.IconButton playButton_T;
+        private System.Windows.Forms.ToolStripMenuItem collabsAll;
+        private System.Windows.Forms.ToolStripMenuItem expandAllBlocks;
     }
 }
 

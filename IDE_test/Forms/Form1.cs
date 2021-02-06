@@ -276,5 +276,15 @@ namespace IDE_test
                 Code.AutoCompile(openFile.FileName);
             }
         }
+
+        private void collabsAll_Click(object sender, EventArgs e)
+        {
+            designsList[tabControl1.SelectedIndex].codeTextBox.CollapseAllFoldingBlocks();
+        }
+
+        private void expandAllBlocks_Click(object sender, EventArgs e)
+        {
+            designsList[tabControl1.SelectedIndex].codeTextBox.ExpandAllFoldingBlocks();
+        }
     }
 }
