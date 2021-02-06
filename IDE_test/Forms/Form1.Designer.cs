@@ -63,6 +63,7 @@
             this.closeTabButton = new FontAwesome.Sharp.IconButton();
             this.compileButton = new FontAwesome.Sharp.IconButton();
             this.decompileButton = new FontAwesome.Sharp.IconButton();
+            this.playButton_T = new FontAwesome.Sharp.IconButton();
             this.toolStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -88,7 +89,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 30);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(627, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(1029, 30);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -248,7 +249,7 @@
             this.gameComboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gameComboBox2.FormattingEnabled = true;
             this.gameComboBox2.IntegralHeight = false;
-            this.gameComboBox2.Location = new System.Drawing.Point(449, 12);
+            this.gameComboBox2.Location = new System.Drawing.Point(851, 12);
             this.gameComboBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gameComboBox2.Name = "gameComboBox2";
             this.gameComboBox2.Size = new System.Drawing.Size(140, 23);
@@ -259,7 +260,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.SystemColors.Control;
-            this.label2.Location = new System.Drawing.Point(401, 15);
+            this.label2.Location = new System.Drawing.Point(803, 15);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 15);
@@ -272,7 +273,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 60);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(627, 275);
+            this.tabControl1.Size = new System.Drawing.Size(1029, 381);
             this.tabControl1.TabIndex = 5;
             // 
             // fileToolStripMenuItem2
@@ -438,7 +439,7 @@
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip2.Size = new System.Drawing.Size(627, 30);
+            this.menuStrip2.Size = new System.Drawing.Size(1029, 30);
             this.menuStrip2.TabIndex = 0;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -454,7 +455,7 @@
             this.closeTabButton.IconColor = System.Drawing.Color.Red;
             this.closeTabButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.closeTabButton.IconSize = 25;
-            this.closeTabButton.Location = new System.Drawing.Point(594, 12);
+            this.closeTabButton.Location = new System.Drawing.Point(996, 12);
             this.closeTabButton.Name = "closeTabButton";
             this.closeTabButton.Size = new System.Drawing.Size(33, 29);
             this.closeTabButton.TabIndex = 6;
@@ -471,7 +472,7 @@
             this.compileButton.IconColor = System.Drawing.Color.Black;
             this.compileButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.compileButton.IconSize = 20;
-            this.compileButton.Location = new System.Drawing.Point(205, 2);
+            this.compileButton.Location = new System.Drawing.Point(406, 2);
             this.compileButton.Name = "compileButton";
             this.compileButton.Size = new System.Drawing.Size(87, 28);
             this.compileButton.TabIndex = 7;
@@ -490,21 +491,43 @@
             this.decompileButton.IconColor = System.Drawing.Color.Black;
             this.decompileButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.decompileButton.IconSize = 20;
-            this.decompileButton.Location = new System.Drawing.Point(298, 2);
+            this.decompileButton.Location = new System.Drawing.Point(499, 2);
             this.decompileButton.Name = "decompileButton";
             this.decompileButton.Size = new System.Drawing.Size(97, 28);
             this.decompileButton.TabIndex = 8;
             this.decompileButton.Text = "Decompile";
             this.decompileButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.decompileButton.UseVisualStyleBackColor = false;
-            this.decompileButton.Click += new System.EventHandler(this.button2_Click);
+            this.decompileButton.Click += new System.EventHandler(this.decompileButton_Click);
+            // 
+            // playButton_T
+            // 
+            this.playButton_T.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.playButton_T.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(73)))));
+            this.playButton_T.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.playButton_T.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.playButton_T.IconChar = FontAwesome.Sharp.IconChar.Play;
+            this.playButton_T.IconColor = System.Drawing.Color.Black;
+            this.playButton_T.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.playButton_T.IconSize = 20;
+            this.playButton_T.Location = new System.Drawing.Point(651, 2);
+            this.playButton_T.Name = "playButton_T";
+            this.playButton_T.Size = new System.Drawing.Size(87, 28);
+            this.playButton_T.TabIndex = 9;
+            this.playButton_T.Text = "Test";
+            this.playButton_T.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.playButton_T.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.playButton_T.UseVisualStyleBackColor = false;
+            this.playButton_T.Visible = false;
+            this.playButton_T.Click += new System.EventHandler(this.playButton_T_Click);
             // 
             // test_IDE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.ClientSize = new System.Drawing.Size(627, 335);
+            this.ClientSize = new System.Drawing.Size(1029, 441);
+            this.Controls.Add(this.playButton_T);
             this.Controls.Add(this.decompileButton);
             this.Controls.Add(this.compileButton);
             this.Controls.Add(this.closeTabButton);
@@ -513,6 +536,7 @@
             this.Controls.Add(this.gameComboBox2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip2;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -572,6 +596,7 @@
         private FontAwesome.Sharp.IconButton compileButton;
         private FontAwesome.Sharp.IconButton decompileButton;
         private FontAwesome.Sharp.IconToolStripButton debugStripButton1;
+        private FontAwesome.Sharp.IconButton playButton_T;
     }
 }
 

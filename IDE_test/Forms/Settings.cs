@@ -169,7 +169,7 @@ namespace IDE_test
                     design.codeTextBox.OnTextChanged();
                 }
                 Properties.Settings.Default.Save();
-                baseStylColorButton.BackColor = Properties.Settings.Default.baseColor;
+                stringStyColorButton.BackColor = Properties.Settings.Default.stringColor;
             }
         }
 
@@ -192,7 +192,7 @@ namespace IDE_test
                     design.codeTextBox.OnTextChanged();
                 }
                 Properties.Settings.Default.Save();
-                baseStylColorButton.BackColor = Properties.Settings.Default.baseColor;
+                multiCommentStyColorButton.BackColor = Properties.Settings.Default.MultiLineCommentColor;
             }
         }
 
@@ -216,7 +216,7 @@ namespace IDE_test
                     design.codeTextBox.OnTextChanged();
                 }
                 Properties.Settings.Default.Save();
-                baseStylColorButton.BackColor = Properties.Settings.Default.baseColor;
+                singelCommentStyColorButton.BackColor = Properties.Settings.Default.singelLineCommentColor;
             }
         }
 
@@ -240,7 +240,7 @@ namespace IDE_test
                     design.codeTextBox.OnTextChanged();
                 }
                 Properties.Settings.Default.Save();
-                baseStylColorButton.BackColor = Properties.Settings.Default.baseColor;
+                MSGStyColorButton.BackColor = Properties.Settings.Default.MSGColor;
             }
         }
     }

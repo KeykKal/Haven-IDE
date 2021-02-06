@@ -52,7 +52,7 @@ namespace AtlusScriptCompilerGUI
             
             RunCMD(args);
         }
-
+        
         public static void Decompile(string[] fileList, string compilerPath)
         {
             ArrayList args = new ArrayList();
@@ -203,7 +203,7 @@ namespace AtlusScriptCompilerGUI
 
             start.Arguments = cmdInput.ToString();
             //MessageBox.Show(cmdInput.ToString());
-
+            
             //Whether or not to show log while compiling
             if (!Log)
                 start.WindowStyle = ProcessWindowStyle.Hidden;
@@ -212,7 +212,13 @@ namespace AtlusScriptCompilerGUI
 
             using (Process process = Process.Start(start))
             {
+                //MessageBox.Show("WALELUUUIIAAAA");
             }
+        }
+
+        static void Exit(object sender, System.EventArgs e)
+        {
+
         }
 
         public static void OpenLog()
