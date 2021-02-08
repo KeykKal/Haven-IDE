@@ -352,13 +352,33 @@ namespace IDE_test
 
         public TabPage OpenCodeTab(TabControl tabControl, FastColoredTextBox rchtext)
         {
+            var documentMap = new DocumentMap()
+            {
+                Target = rchtext,
+                Dock = DockStyle.Right,
+                ForeColor = System.Drawing.Color.PaleVioletRed,
+                BackColor = Color.FromArgb(50, 50, 55),
+                Size = new System.Drawing.Size(200, 0),
+            };
+
+            var splitter = new Splitter()
+            {
+                BackColor = Color.FromArgb(30, 30, 30),
+                Dock = DockStyle.Right,
+                Size = new System.Drawing.Size(10, 3)
+            };
+
             string title = "Tab " + (tabControl.TabCount + 1).ToString();
             if(tabTitle == null)
                 tabTitle = title;
 
             this.tabControl = tabControl;
             updateValues();
+
             tabPage.Controls.Add(rchtext);
+            tabPage.Controls.Add(splitter);
+            tabPage.Controls.Add(documentMap);
+            
             tabControl.TabPages.Add(tabPage);
             return tabPage;
         }
@@ -474,6 +494,7 @@ namespace IDE_test
         static TextStyle MultiLineCommentStyl = new TextStyle(new SolidBrush(Properties.Settings.Default.MultiLineCommentColor), null, FontStyle.Regular); //check
         static TextStyle stringstyl = new TextStyle(new SolidBrush(Properties.Settings.Default.stringColor), null, FontStyle.Regular); //check
         static TextStyle MSGStyl = new TextStyle(new SolidBrush(Properties.Settings.Default.MSGColor), null, FontStyle.Regular);//check
+        static TextStyle FunctionNameStyle = new TextStyle(new SolidBrush(Properties.Settings.Default.MSGColor), null, FontStyle.Regular);//well some what
         public static void syntaxHighlights(TextChangedEventArgs e, FastColoredTextBox fctb)
         {
             NumberStyl.ForeBrush = new SolidBrush(Properties.Settings.Default.NumberColor);
@@ -482,6 +503,7 @@ namespace IDE_test
             MultiLineCommentStyl.ForeBrush = new SolidBrush(Properties.Settings.Default.MultiLineCommentColor);
             stringstyl.ForeBrush = new SolidBrush(Properties.Settings.Default.stringColor);
             MSGStyl.ForeBrush = new SolidBrush(Properties.Settings.Default.MSGColor);
+            FunctionNameStyle.ForeBrush = new SolidBrush(Properties.Settings.Default.MSGColor);
 
             fctb.LeftBracket = '(';
             fctb.RightBracket = ')';
@@ -514,6 +536,9 @@ namespace IDE_test
             //keyword highlighting
             e.ChangedRange.SetStyle(Styl, @"\b(import|abstract|as|base|bool|break|byte|case|catch|char|checked|class|const|continue|decimal|default|delegate|do|double|else|enum|event|explicit|extern|false|finally|fixed|float|for|foreach|goto|if|implicit|in|int|interface|internal|is|lock|long|namespace|new|null|object|operator|out|override|params|private|protected|public|readonly|ref|return|sbyte|sealed|short|sizeof|stackalloc|static|string|struct|switch|this|throw|true|try|typeof|uint|ulong|unchecked|unsafe|ushort|using|virtual|void|volatile|while|add|alias|ascending|descending|dynamic|from|get|global|group|into|join|let|orderby|partial|remove|select|set|value|var|where|yield)\b|#region\b|#endregion\b");
 
+            foreach (FastColoredTextBoxNS.Range found in fctb.GetRanges(@"\b(void|DEFUN)\s+(?<range>\w+)\b"))
+                fctb.Range.SetStyle(FunctionNameStyle, @"\b" + found.Text + @"\b");
+
             //clear folding markers
             e.ChangedRange.ClearFoldingMarkers();
 
@@ -521,60 +546,6 @@ namespace IDE_test
             e.ChangedRange.SetFoldingMarkers("{", "}");//allow to collapse brackets block
             e.ChangedRange.SetFoldingMarkers(@"#region\b", @"#endregion\b");//allow to collapse #region blocks
             e.ChangedRange.SetFoldingMarkers(@"/\*", @"\*/");//allow to collapse comment block
-        }
-
-        public void clearHighlights(object sender, TextChangedEventArgs e)
-        {
-            codeTextBox.ClearStylesBuffer();
-            //codeTextBox.Range.ClearStyle(StyleIndex.All);
-
-            syntaxHighlights(e, this.codeTextBox);
-            codeTextBox.AutoIndentNeeded -= fctb_AutoIndentNeeded;
-
-            codeTextBox.Language = Language.Custom;
-            codeTextBox.CommentPrefix = "//";
-            codeTextBox.AutoIndentNeeded += fctb_AutoIndentNeeded;
-            //call OnTextChanged for refresh syntax highlighting
-            codeTextBox.OnTextChanged();
-        }
-        private void fctb_AutoIndentNeeded(object sender, AutoIndentEventArgs args)
-        {
-            //block {}
-            if (Regex.IsMatch(args.LineText, @"^[^""']*\{.*\}[^""']*$"))
-                return;
-            //start of block {}
-            if (Regex.IsMatch(args.LineText, @"^[^""']*\{"))
-            {
-                args.ShiftNextLines = args.TabLength;
-                return;
-            }
-            //end of block {}
-            if (Regex.IsMatch(args.LineText, @"}[^""']*$"))
-            {
-                args.Shift = -args.TabLength;
-                args.ShiftNextLines = -args.TabLength;
-                return;
-            }
-            //label
-            if (Regex.IsMatch(args.LineText, @"^\s*\w+\s*:\s*($|//)") &&
-                !Regex.IsMatch(args.LineText, @"^\s*default\s*:"))
-            {
-                args.Shift = -args.TabLength;
-                return;
-            }
-            //some statements: case, default
-            if (Regex.IsMatch(args.LineText, @"^\s*(case|default)\b.*:\s*($|//)"))
-            {
-                args.Shift = -args.TabLength / 2;
-                return;
-            }
-            //is unclosed operator in previous line ?
-            if (Regex.IsMatch(args.PrevLineText, @"^\s*(if|for|foreach|while|[\}\s]*else)\b[^{]*$"))
-                if (!Regex.IsMatch(args.PrevLineText, @"(;\s*$)|(;\s*//)"))//operator is unclosed
-                {
-                    args.Shift = args.TabLength;
-                    return;
-                }
         }
 
     }

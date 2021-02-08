@@ -447,7 +447,6 @@
             this.TestWindowButton.Name = "TestWindowButton";
             this.TestWindowButton.Size = new System.Drawing.Size(86, 26);
             this.TestWindowButton.Text = "Test Window";
-            this.TestWindowButton.Visible = false;
             this.TestWindowButton.Click += new System.EventHandler(this.TestWindowButton_Click_1);
             // 
             // menuStrip2
