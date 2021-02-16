@@ -21,7 +21,8 @@ namespace IDE_test
         {
             InitializeComponent();
             loadValues();
-            compilerFolderPath.Text = FilePaths.CompilerFilePath;
+            //compilerFolderPath.Text = FilePaths.CompilerFilePath;
+            gameFilePath.Text = FilePaths.GameFilePath;
         }
 
         void loadValues()
@@ -50,8 +51,9 @@ namespace IDE_test
             Properties.Settings.Default.Save();
         }
 
+        //Outdated
         //open explorer to search for the compiler
-        private void button1_Click(object sender, EventArgs e)
+        /*private void compilerSelectButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFile = new OpenFileDialog
             {
@@ -72,7 +74,31 @@ namespace IDE_test
                 }
                 FilePaths.CompilerFilePath = openFile.FileName;
             }
+        }*/
+
+        private void gameSelectButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog
+            {
+                Title = "Select the P4G.exe .. ",
+                Multiselect = false,
+                Filter = "Executable (*.EXE)|*.EXE;|" +
+                "All files (*.*)|*.*"
+            };
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                gameFilePath.Clear();
+
+                using (StreamReader sr = new StreamReader(openFile.FileName))
+                {
+                    gameFilePath.Text = openFile.FileName;
+                    sr.Close();
+                }
+                FilePaths.GameFilePath = openFile.FileName;
+            }
         }
+
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -99,7 +125,6 @@ namespace IDE_test
                 get { return Color.White; }
             }
         }
-
 
         private void baseStylColorButton_Click(object sender, EventArgs e)
         {
@@ -243,5 +268,6 @@ namespace IDE_test
                 MSGStyColorButton.BackColor = Properties.Settings.Default.MSGColor;
             }
         }
+
     }
 }
