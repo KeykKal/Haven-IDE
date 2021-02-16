@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ComplierOutput = new System.Windows.Forms.Label();
-            this.compilerFolderPath = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.chk_Log = new System.Windows.Forms.CheckBox();
             this.chk_Hook = new System.Windows.Forms.CheckBox();
@@ -38,6 +35,12 @@
             this.chk_overwrite = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.configPage = new System.Windows.Forms.TabPage();
+            this.relodedSelectButton = new System.Windows.Forms.Button();
+            this.relodedFilePath = new System.Windows.Forms.TextBox();
+            this.relodedPathLabel = new System.Windows.Forms.Label();
+            this.gameSelectButton = new System.Windows.Forms.Button();
+            this.gameFilePath = new System.Windows.Forms.TextBox();
+            this.GameName = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.designSettings = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
@@ -58,44 +61,13 @@
             this.designSettings.SuspendLayout();
             this.SuspendLayout();
             // 
-            // ComplierOutput
-            // 
-            this.ComplierOutput.AutoSize = true;
-            this.ComplierOutput.ForeColor = System.Drawing.SystemColors.Control;
-            this.ComplierOutput.Location = new System.Drawing.Point(27, 54);
-            this.ComplierOutput.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.ComplierOutput.Name = "ComplierOutput";
-            this.ComplierOutput.Size = new System.Drawing.Size(59, 15);
-            this.ComplierOutput.TabIndex = 1;
-            this.ComplierOutput.Text = "Compiler:";
-            // 
-            // compilerFolderPath
-            // 
-            this.compilerFolderPath.Location = new System.Drawing.Point(92, 50);
-            this.compilerFolderPath.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.compilerFolderPath.Name = "compilerFolderPath";
-            this.compilerFolderPath.ReadOnly = true;
-            this.compilerFolderPath.Size = new System.Drawing.Size(419, 23);
-            this.compilerFolderPath.TabIndex = 2;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(507, 50);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(36, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "...";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // chk_Log
             // 
             this.chk_Log.AutoSize = true;
             this.chk_Log.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.chk_Log.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_Log.ForeColor = System.Drawing.SystemColors.Control;
-            this.chk_Log.Location = new System.Drawing.Point(316, 94);
+            this.chk_Log.Location = new System.Drawing.Point(317, 181);
             this.chk_Log.Name = "chk_Log";
             this.chk_Log.Size = new System.Drawing.Size(75, 19);
             this.chk_Log.TabIndex = 4;
@@ -108,7 +80,7 @@
             this.chk_Hook.AutoSize = true;
             this.chk_Hook.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_Hook.ForeColor = System.Drawing.SystemColors.Control;
-            this.chk_Hook.Location = new System.Drawing.Point(135, 94);
+            this.chk_Hook.Location = new System.Drawing.Point(136, 181);
             this.chk_Hook.Name = "chk_Hook";
             this.chk_Hook.Size = new System.Drawing.Size(107, 19);
             this.chk_Hook.TabIndex = 5;
@@ -120,7 +92,7 @@
             this.chk_disassemble.AutoSize = true;
             this.chk_disassemble.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_disassemble.ForeColor = System.Drawing.SystemColors.Control;
-            this.chk_disassemble.Location = new System.Drawing.Point(316, 132);
+            this.chk_disassemble.Location = new System.Drawing.Point(317, 219);
             this.chk_disassemble.Name = "chk_disassemble";
             this.chk_disassemble.Size = new System.Drawing.Size(88, 19);
             this.chk_disassemble.TabIndex = 6;
@@ -132,7 +104,7 @@
             this.chk_overwrite.AutoSize = true;
             this.chk_overwrite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_overwrite.ForeColor = System.Drawing.SystemColors.Control;
-            this.chk_overwrite.Location = new System.Drawing.Point(135, 132);
+            this.chk_overwrite.Location = new System.Drawing.Point(136, 219);
             this.chk_overwrite.Name = "chk_overwrite";
             this.chk_overwrite.Size = new System.Drawing.Size(74, 19);
             this.chk_overwrite.TabIndex = 7;
@@ -147,26 +119,90 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(601, 193);
+            this.tabControl1.Size = new System.Drawing.Size(601, 294);
             this.tabControl1.TabIndex = 8;
             // 
             // configPage
             // 
             this.configPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.configPage.Controls.Add(this.relodedSelectButton);
+            this.configPage.Controls.Add(this.relodedFilePath);
+            this.configPage.Controls.Add(this.relodedPathLabel);
+            this.configPage.Controls.Add(this.gameSelectButton);
+            this.configPage.Controls.Add(this.gameFilePath);
+            this.configPage.Controls.Add(this.GameName);
             this.configPage.Controls.Add(this.label8);
-            this.configPage.Controls.Add(this.button1);
-            this.configPage.Controls.Add(this.compilerFolderPath);
             this.configPage.Controls.Add(this.chk_overwrite);
-            this.configPage.Controls.Add(this.ComplierOutput);
             this.configPage.Controls.Add(this.chk_disassemble);
             this.configPage.Controls.Add(this.chk_Hook);
             this.configPage.Controls.Add(this.chk_Log);
             this.configPage.Location = new System.Drawing.Point(4, 24);
             this.configPage.Name = "configPage";
             this.configPage.Padding = new System.Windows.Forms.Padding(3);
-            this.configPage.Size = new System.Drawing.Size(593, 165);
+            this.configPage.Size = new System.Drawing.Size(593, 266);
             this.configPage.TabIndex = 0;
             this.configPage.Text = "Config";
+            // 
+            // relodedSelectButton
+            // 
+            this.relodedSelectButton.Location = new System.Drawing.Point(507, 112);
+            this.relodedSelectButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.relodedSelectButton.Name = "relodedSelectButton";
+            this.relodedSelectButton.Size = new System.Drawing.Size(36, 23);
+            this.relodedSelectButton.TabIndex = 14;
+            this.relodedSelectButton.Text = "...";
+            this.relodedSelectButton.UseVisualStyleBackColor = true;
+            // 
+            // relodedFilePath
+            // 
+            this.relodedFilePath.Location = new System.Drawing.Point(92, 112);
+            this.relodedFilePath.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.relodedFilePath.Name = "relodedFilePath";
+            this.relodedFilePath.ReadOnly = true;
+            this.relodedFilePath.Size = new System.Drawing.Size(419, 23);
+            this.relodedFilePath.TabIndex = 13;
+            // 
+            // relodedPathLabel
+            // 
+            this.relodedPathLabel.AutoSize = true;
+            this.relodedPathLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.relodedPathLabel.Location = new System.Drawing.Point(5, 116);
+            this.relodedPathLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.relodedPathLabel.Name = "relodedPathLabel";
+            this.relodedPathLabel.Size = new System.Drawing.Size(74, 15);
+            this.relodedPathLabel.TabIndex = 12;
+            this.relodedPathLabel.Text = "Reloded exe:";
+            // 
+            // gameSelectButton
+            // 
+            this.gameSelectButton.Location = new System.Drawing.Point(507, 64);
+            this.gameSelectButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.gameSelectButton.Name = "gameSelectButton";
+            this.gameSelectButton.Size = new System.Drawing.Size(36, 23);
+            this.gameSelectButton.TabIndex = 11;
+            this.gameSelectButton.Text = "...";
+            this.gameSelectButton.UseVisualStyleBackColor = true;
+            this.gameSelectButton.Click += new System.EventHandler(this.gameSelectButton_Click);
+            // 
+            // gameFilePath
+            // 
+            this.gameFilePath.Location = new System.Drawing.Point(92, 64);
+            this.gameFilePath.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.gameFilePath.Name = "gameFilePath";
+            this.gameFilePath.ReadOnly = true;
+            this.gameFilePath.Size = new System.Drawing.Size(419, 23);
+            this.gameFilePath.TabIndex = 10;
+            // 
+            // GameName
+            // 
+            this.GameName.AutoSize = true;
+            this.GameName.ForeColor = System.Drawing.SystemColors.Control;
+            this.GameName.Location = new System.Drawing.Point(27, 68);
+            this.GameName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.GameName.Name = "GameName";
+            this.GameName.Size = new System.Drawing.Size(52, 15);
+            this.GameName.TabIndex = 9;
+            this.GameName.Text = "P4G exe:";
             // 
             // label8
             // 
@@ -199,7 +235,7 @@
             this.designSettings.Location = new System.Drawing.Point(4, 24);
             this.designSettings.Name = "designSettings";
             this.designSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.designSettings.Size = new System.Drawing.Size(593, 165);
+            this.designSettings.Size = new System.Drawing.Size(593, 266);
             this.designSettings.TabIndex = 1;
             this.designSettings.Text = "Design";
             // 
@@ -355,7 +391,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.ClientSize = new System.Drawing.Size(601, 193);
+            this.ClientSize = new System.Drawing.Size(601, 294);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -374,9 +410,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label ComplierOutput;
-        private System.Windows.Forms.TextBox compilerFolderPath;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         public System.Windows.Forms.CheckBox chk_Hook;
         public System.Windows.Forms.CheckBox chk_disassemble;
@@ -399,5 +432,11 @@
         private System.Windows.Forms.Button MSGStyColorButton;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button gameSelectButton;
+        private System.Windows.Forms.TextBox gameFilePath;
+        private System.Windows.Forms.Label GameName;
+        private System.Windows.Forms.Button relodedSelectButton;
+        private System.Windows.Forms.TextBox relodedFilePath;
+        private System.Windows.Forms.Label relodedPathLabel;
     }
 }

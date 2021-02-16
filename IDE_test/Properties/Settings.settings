@@ -14,9 +14,6 @@
     <Setting Name="Log" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CompilerPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="NumberColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">128, 128, 255</Value>
     </Setting>
@@ -34,6 +31,9 @@
     </Setting>
     <Setting Name="MSGColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">0, 0, 192</Value>
+    </Setting>
+    <Setting Name="GamePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

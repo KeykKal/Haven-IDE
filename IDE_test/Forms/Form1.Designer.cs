@@ -62,12 +62,27 @@
             this.expandAllBlocks = new System.Windows.Forms.ToolStripMenuItem();
             this.TestWindowButton = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.showHideConsoleButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.showHideDocumentMapButton = new System.Windows.Forms.ToolStripMenuItem();
             this.closeTabButton = new FontAwesome.Sharp.IconButton();
             this.compileButton = new FontAwesome.Sharp.IconButton();
             this.decompileButton = new FontAwesome.Sharp.IconButton();
             this.playButton_T = new FontAwesome.Sharp.IconButton();
+            this.consoleTextBox = new System.Windows.Forms.RichTextBox();
+            this.documentMap1 = new FastColoredTextBoxNS.DocumentMap();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.toolStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -272,11 +287,14 @@
             // tabControl1
             // 
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 60);
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1029, 381);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 5;
+            this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.drawCloseButton);
+            this.tabControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TabControl1_MouseDown);
             // 
             // fileToolStripMenuItem2
             // 
@@ -456,13 +474,40 @@
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem2,
             this.editToolStripMenuItem2,
-            this.TestWindowButton});
+            this.TestWindowButton,
+            this.toolStripMenuItem1});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
             this.menuStrip2.Size = new System.Drawing.Size(1029, 30);
             this.menuStrip2.TabIndex = 0;
             this.menuStrip2.Text = "menuStrip2";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showHideConsoleButton,
+            this.showHideDocumentMapButton});
+            this.toolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(44, 26);
+            this.toolStripMenuItem1.Text = "View";
+            // 
+            // showHideConsoleButton
+            // 
+            this.showHideConsoleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.showHideConsoleButton.Name = "showHideConsoleButton";
+            this.showHideConsoleButton.Size = new System.Drawing.Size(218, 22);
+            this.showHideConsoleButton.Text = "Show/Hide Console";
+            this.showHideConsoleButton.Click += new System.EventHandler(this.showHideConsoleButton_Click);
+            // 
+            // showHideDocumentMapButton
+            // 
+            this.showHideDocumentMapButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.showHideDocumentMapButton.Name = "showHideDocumentMapButton";
+            this.showHideDocumentMapButton.Size = new System.Drawing.Size(218, 22);
+            this.showHideDocumentMapButton.Text = "Show/Hide document map";
+            this.showHideDocumentMapButton.Click += new System.EventHandler(this.showHideDocumentMapButton_Click);
             // 
             // closeTabButton
             // 
@@ -481,6 +526,7 @@
             this.closeTabButton.Size = new System.Drawing.Size(33, 29);
             this.closeTabButton.TabIndex = 6;
             this.closeTabButton.UseVisualStyleBackColor = false;
+            this.closeTabButton.Visible = false;
             this.closeTabButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // compileButton
@@ -542,17 +588,83 @@
             this.playButton_T.Visible = false;
             this.playButton_T.Click += new System.EventHandler(this.playButton_T_Click);
             // 
+            // consoleTextBox
+            // 
+            this.consoleTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(50)))));
+            this.consoleTextBox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.consoleTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.consoleTextBox.ForeColor = System.Drawing.SystemColors.Control;
+            this.consoleTextBox.Location = new System.Drawing.Point(0, 0);
+            this.consoleTextBox.Name = "consoleTextBox";
+            this.consoleTextBox.Size = new System.Drawing.Size(150, 46);
+            this.consoleTextBox.TabIndex = 10;
+            this.consoleTextBox.Text = "";
+            this.consoleTextBox.TextChanged += new System.EventHandler(this.consoleTextBox_TextChanged);
+            // 
+            // documentMap1
+            // 
+            this.documentMap1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(60)))), ((int)(((byte)(50)))));
+            this.documentMap1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.documentMap1.ForeColor = System.Drawing.Color.Maroon;
+            this.documentMap1.Location = new System.Drawing.Point(0, 0);
+            this.documentMap1.Name = "documentMap1";
+            this.documentMap1.Size = new System.Drawing.Size(96, 100);
+            this.documentMap1.TabIndex = 12;
+            this.documentMap1.Target = null;
+            this.documentMap1.Text = "documentMap";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.tabControl1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.documentMap1);
+            this.splitContainer1.Panel2Collapsed = true;
+            this.splitContainer1.Size = new System.Drawing.Size(1029, 381);
+            this.splitContainer1.SplitterDistance = 900;
+            this.splitContainer1.SplitterWidth = 15;
+            this.splitContainer1.TabIndex = 13;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 60);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.splitContainer1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.consoleTextBox);
+            this.splitContainer2.Panel2Collapsed = true;
+            this.splitContainer2.Size = new System.Drawing.Size(1029, 381);
+            this.splitContainer2.SplitterDistance = 190;
+            this.splitContainer2.SplitterWidth = 15;
+            this.splitContainer2.TabIndex = 14;
+            // 
             // test_IDE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(1029, 441);
+            this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.playButton_T);
             this.Controls.Add(this.decompileButton);
             this.Controls.Add(this.compileButton);
             this.Controls.Add(this.closeTabButton);
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.gameComboBox2);
             this.Controls.Add(this.toolStrip1);
@@ -571,6 +683,14 @@
             this.toolStrip1.PerformLayout();
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -620,6 +740,13 @@
         private FontAwesome.Sharp.IconButton playButton_T;
         private System.Windows.Forms.ToolStripMenuItem collabsAll;
         private System.Windows.Forms.ToolStripMenuItem expandAllBlocks;
+        private System.Windows.Forms.RichTextBox consoleTextBox;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem showHideConsoleButton;
+        private System.Windows.Forms.ToolStripMenuItem showHideDocumentMapButton;
+        private FastColoredTextBoxNS.DocumentMap documentMap1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
     }
 }
 
