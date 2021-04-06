@@ -19,6 +19,7 @@ namespace AtlusScriptCompilerGUI
 {
     public partial class GUI
     {
+
         public static bool Hook { get; set; }
         public static bool Disassemble { get; set; }
         public static bool Overwrite { get; set; }
@@ -39,6 +40,53 @@ namespace AtlusScriptCompilerGUI
             "Persona Q2",
         };
 
+
+        /// <summary>
+        /// to compile the given files asynchronous
+        /// </summary>
+        /// <param name="fileList">the given files to compile</param>
+        /// <returns></returns>
+        public static async Task CompileAsync(string[] fileList/*, string compilerPath*/)
+        {
+            var args = new List<string>();
+            for (int i = 0; i < fileList.Count(); i++)
+            {
+                string ext = Path.GetExtension(fileList[i]).ToUpper();
+                if (ext == ".MSG" || ext == ".FLOW")
+                {
+                    //args.Add(GetArgument(fileList[i], ext, "-Compile ", compilerPath));
+                    await Task.Run(() => Compiler.Run(GetArguments(fileList[i], ext, "-Compile", args)));
+                }
+            }
+            args.Clear();
+            //Compiler.Run(args.ToArray());
+        }
+
+        /// <summary>
+        /// to decompile the given files asynchronous
+        /// </summary>
+        /// <param name="fileList">the given files to compile</param>
+        /// <returns></returns>
+        public static async Task DecompileAsync(string[] fileList/*, string compilerPath*/)
+        {
+            //Bug: it saved the whole command in ONE SINGEL array.
+            var args = new List<string>();
+            for (int i = 0; i < fileList.Count(); i++)
+            {
+                string ext = Path.GetExtension(fileList[i]).ToLowerInvariant();
+                if (ext == ".bmd" || ext == ".bf")
+                {
+
+                    //args.Add(GetArgument(fileList[i], ext, "-Decompile ", compilerPath));
+                    await Task.Run(() => Compiler.Run(GetArguments(fileList[i], ext, "-Decompile", args)));
+                }
+            }
+        }
+
+        /// <summary>
+        /// to compile the given files
+        /// </summary>
+        /// <param name="fileList">the given files to compile</param>
         public static void Compile(string[] fileList/*, string compilerPath*/)
         {
             var args = new List<string>();
@@ -48,12 +96,18 @@ namespace AtlusScriptCompilerGUI
                 if (ext == ".MSG" || ext == ".FLOW")
                 {
                     //args.Add(GetArgument(fileList[i], ext, "-Compile ", compilerPath));
-                    Compiler.Run(_GetArguments(fileList[i], ext, "-Compile", args));
+                    Compiler.Run(GetArguments(fileList[i], ext, "-Compile", args));
                 }
             }
             args.Clear();
             //Compiler.Run(args.ToArray());
         }
+
+        /// <summary>
+        /// to decompile the given files
+        /// </summary>
+        /// <param name="fileList">the given files to compile</param>
+        /// <returns></returns>
         public static void Decompile(string[] fileList/*, string compilerPath*/)
         {
             //Bug: it saved the whole command in ONE SINGEL array.
@@ -65,132 +119,21 @@ namespace AtlusScriptCompilerGUI
                 {
 
                     //args.Add(GetArgument(fileList[i], ext, "-Decompile ", compilerPath));
-                    Compiler.Run(_GetArguments(fileList[i], ext, "-Decompile", args));
+                    Compiler.Run(GetArguments(fileList[i], ext, "-Decompile", args));
                 }
             }
         }
 
-        private static string GetArgument(string droppedFilePath, string extension, string compileArg, string compilerPath)
-        {
-            string encodingArg = "";
-            string libraryArg = "";
-            string outFormatArg = "";
 
-            switch (Selection)
-            {
-                case 0: //SMT3
-                    encodingArg = "-Encoding P3";
-                    if (extension != ".BMD")
-                        libraryArg = "-Library SMT3";
-                    if (extension == ".MSG")
-                        outFormatArg = "-OutFormat V1";
-                    if (extension == ".FLOW")
-                        outFormatArg = "-OutFormat V1";
-                    break;
-                case 1: //DDS
-                    encodingArg = "-Encoding P3";
-                    if (extension != ".BMD")
-                        libraryArg = "-Library DDS";
-                    if (extension == ".MSG")
-                        outFormatArg = "-OutFormat V1DDS";
-                    if (extension == ".FLOW")
-                        outFormatArg = "-OutFormat V1DDS";
-                    break;
-                case 2: //P3P
-                    encodingArg = "-Encoding P3";
-                    if (extension != ".BMD")
-                        libraryArg = "-Library P3P";
-                    if (extension == ".MSG" || extension == ".FLOW")
-                        outFormatArg = "-OutFormat V1";
-                    break;
-                case 3: //P3
-                    encodingArg = "-Encoding P3";
-                    if (extension != ".BMD")
-                        libraryArg = "-Library P3";
-                    if (extension == ".MSG" || extension == ".FLOW")
-                        outFormatArg = "-OutFormat V1";
-                    break;
-                case 4: //P3FES
-                    encodingArg = "-Encoding P3";
-                    if (extension != ".BMD")
-                        libraryArg = "-Library P3F";
-                    if (extension == ".MSG" || extension == ".FLOW")
-                        outFormatArg = "-OutFormat V1";
-                    break;
-                case 5: //P4
-                    encodingArg = "-Encoding P4";
-                    if (extension != ".BMD")
-                        libraryArg = "-Library P4";
-                    if (extension == ".MSG" || extension == ".FLOW")
-                        outFormatArg = "-OutFormat V1";
-                    break;
-                case 6: //P4G
-                    encodingArg = "-Encoding P4";
-                    if (extension != ".BMD")
-                        libraryArg = "-Library P4G";
-                    if (extension == ".MSG" || extension == ".FLOW")
-                        outFormatArg = "-OutFormat V1";
-                    break;
-                case 7: //P5
-                    encodingArg = "-Encoding P5";
-                    if (extension != ".BMD")
-                        libraryArg = "-Library P5";
-                    if (extension == ".MSG")
-                        outFormatArg = "-OutFormat V1BE";
-                    if (extension == ".FLOW")
-                        outFormatArg = "-OutFormat V3BE";
-                    break;
-                case 8: //P5R
-                    encodingArg = "-Encoding P5";
-                    if (extension != ".BMD")
-                        libraryArg = "-Library P5R";
-                    if (extension == ".MSG")
-                        outFormatArg = "-OutFormat V1BE";
-                    if (extension == ".FLOW")
-                        outFormatArg = "-OutFormat V3BE";
-                    break;
-                case 9: //PQ2
-                    encodingArg = "-Encoding SJ";
-                    if (extension != ".BMD")
-                        libraryArg = "-Library PQ2";
-                    if (extension == ".MSG")
-                        outFormatArg = "-OutFormat V1";
-                    if (extension == ".FLOW")
-                        outFormatArg = "-OutFormat V1";
-                    break;
-            }
-
-            StringBuilder args = new StringBuilder();
-            //args.Append(compilerPath+" ");
-            args.Append($" {droppedFilePath} ");
-            if (Disassemble) //Omits all args if you are disassembling
-                args.Append($" -Disassemble");
-            else
-            {
-                args.Append($"{compileArg} ");
-                args.Append($"{outFormatArg} ");
-                args.Append($"{libraryArg} ");
-                args.Append($"{encodingArg} ");
-                if (Hook)
-                    args.Append($" -Hook ");
-                if (compileArg == "-Compile " && Overwrite)
-                {
-                    string outPath = droppedFilePath.Replace(".flow", "")
-                        .Replace(".FLOW", "").Replace(".msg", "").Replace(".MSG", "")
-                        .Replace(".bf", "").Replace(".BF", "").Replace(".bmd", "")
-                        .Replace(".BMD", "");
-                    if (extension == ".MSG")
-                        args.Append($"-Out \"{outPath + ".bmd"}\" ");
-                    else if (extension == ".FLOW")
-                        args.Append($"-Out \"{outPath + ".bf"}\" ");
-                }
-            }
-
-            MessageBox.Show(args.ToString());
-            return args.ToString();
-        }
-
-        private static string[] _GetArguments(string droppedFilePath, string extension, string compileArg, List<string> args)
+        /// <summary>
+        /// to get the arguments of the given files
+        /// </summary>
+        /// <param name="droppedFilePath">the file path of the file</param>
+        /// <param name="extension">filetyp (file extension)</param>
+        /// <param name="compileArg">operantion (-Compile, -Decompile)</param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        private static string[] GetArguments(string droppedFilePath, string extension, string compileArg, List<string> args)
         {
             args.Clear();
             string encodingArg = "";
@@ -291,6 +234,10 @@ namespace AtlusScriptCompilerGUI
             return args.ToArray();
         }
 
+        /// <summary>
+        /// not needed anymore used for opening the CMD could be imortant in the future
+        /// </summary>
+        /// <param name="args"></param>
         private static void RunCMD(ArrayList args)
         {
             Process process = new Process();
@@ -333,6 +280,9 @@ namespace AtlusScriptCompilerGUI
 
         }
 
+        /// <summary>
+        /// used to open the Log (as a file)
+        /// </summary>
         public static void OpenLog()
         {
             if (File.Exists("AtlusScriptCompiler.log"))

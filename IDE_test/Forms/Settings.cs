@@ -23,6 +23,7 @@ namespace IDE_test
             loadValues();
             //compilerFolderPath.Text = FilePaths.CompilerFilePath;
             gameFilePath.Text = FilePaths.GameFilePath;
+            relodedFilePath.Text = FilePaths.ReloadedPath;
         }
 
         void loadValues()
@@ -99,6 +100,25 @@ namespace IDE_test
             }
         }
 
+        private void relodedSelectButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog
+            {
+                Title = "Select the Reloaded.exe .. ",
+                Multiselect = false,
+                Filter = "Executable (*.EXE)|*.EXE;|" +
+             "All files (*.*)|*.*"
+            };
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                relodedFilePath.Clear();
+
+                relodedFilePath.Text = openFile.FileName;
+                
+                FilePaths.ReloadedPath = openFile.FileName;
+            }
+        }
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -268,6 +288,5 @@ namespace IDE_test
                 MSGStyColorButton.BackColor = Properties.Settings.Default.MSGColor;
             }
         }
-
     }
 }

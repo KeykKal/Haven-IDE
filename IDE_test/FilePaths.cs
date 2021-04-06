@@ -14,69 +14,13 @@ namespace IDE_test
 {
 
     //ToDo still not finished with changing the folder of the compiled Files But it is already 4 am and i should sleep. Found a new method to check if an file was changed thou
-    //so that is good Update: its been 3 days and i just left it maybe ill work on it another time and if im really lucky even get it right. | to add in future compile and 
-    //auto open the files that are created.
+    //so that is good Update: its been 3 days and i just left it maybe ill work on it another time and if im really lucky even get it right. 
+    // | to add in future compile and auto open the files that are created.(Future me: Compile and start?)
     class FilePaths
     {
-        /*public static string CompilerFilePath
-        {
-            get
-            {
-                string path = Properties.Settings.Default.CompilerPath;
-
-                if (path == null)
-                {
-                    OpenFileDialog openFile = new OpenFileDialog
-                    {
-                        Title = "Select the AtlusScriptCompiler.exe .. ",
-                        Multiselect = false,
-                        Filter = "Executable (*.EXE)|*.EXE;|" +
-                        "All files (*.*)|*.*"
-                    };
-
-                    if (openFile.ShowDialog() == DialogResult.OK)
-                    {
-                        path = openFile.FileName;
-                    }
-                }
-
-                _compilerFilePath = path;
-
-                return _compilerFilePath;
-            }
-            set
-            {
-                _compilerFilePath = value;
-
-                if (_compilerFilePath == null)
-                    MessageBox.Show("[ERROR] compilerPath is null");
-
-                Properties.Settings.Default.CompilerPath = _compilerFilePath;
-
-                //string path = Properties.Settings.Default.CompilerPath;
-
-                //if (path == null)
-                //{
-                //    OpenFileDialog openFile = new OpenFileDialog
-                //    {
-                //        Title = "Select the AtlusScriptCompiler.exe .. ",
-                //        Multiselect = false,
-                //        Filter = "Executable (*.EXE)|*.EXE;|" +
-                //        "All files (*.*)|*.*"
-                //    };
-
-                //    if (openFile.ShowDialog() == DialogResult.OK)
-                //    {
-                //        path = openFile.FileName;
-                //    }
-                //}
-
-            }
-        }*/
-
-        //private static string _compilerFilePath;
-
-
+        /// <summary>
+        /// should be always the in the executable folder
+        /// </summary>
         public static string LibraryPath
         {
             get
@@ -88,15 +32,67 @@ namespace IDE_test
 
                 return AppDomain.CurrentDomain + "\\Libraries";
             }
-        } 
+        }
 
+        /// <summary>
+        /// returns the Selected game as an int (for example: persona 4 Golden is 6)
+        /// </summary>
         public static int selectedGame;
 
+        /// <summary>
+        /// to get the text File with the selected game 
+        /// </summary>
+        /// <returns>String path to the text file</returns>
         public static string SelectedGamePath()
         {
             return File.ReadAllLines("Game.txt")[0];
         }
 
+        /// <summary>
+        /// Not in use right now but to get/set The Reloded.exe path
+        /// </summary>
+        public static string ReloadedPath
+        {
+            get
+            {
+                //change this
+                string path = Properties.Settings.Default.ReloadedPath;
+
+                if (path == null)
+                {
+                    OpenFileDialog openFile = new OpenFileDialog
+                    {
+                        Title = "Select the Reloaded exe File... ",
+                        Multiselect = false,
+                        Filter = "Executable (*.EXE)|*.EXE;|" +
+                        "All files (*.*)|*.*"
+                    };
+
+                    if (openFile.ShowDialog() == DialogResult.OK)
+                    {
+                        path = openFile.FileName;
+                    }
+                }
+
+                _reloadedFilePath = path;
+
+                return _reloadedFilePath;
+            }
+            set
+            {
+                _reloadedFilePath = value;
+
+                if (_reloadedFilePath == null)
+                    MessageBox.Show("[ERROR] the Reloaded filepath is null");
+
+                Properties.Settings.Default.ReloadedPath = _reloadedFilePath;
+            }
+        }
+        private static string _reloadedFilePath;
+
+        /// <summary>
+        /// Not in use right now but used to get/set the Games.exe path
+        /// </summary>
         public static string GameFilePath
         {
             get
@@ -134,14 +130,21 @@ namespace IDE_test
                 Properties.Settings.Default.GamePath = _gameFilePath;
             }
         }
-
         private static string _gameFilePath;
 
+        /// <summary>
+        /// not in use right now was to be used to load the modded file in the mod folder but that won't work
+        /// </summary>
+        public static string modFolderPath { private set { } 
+            get { try { return Path.Combine(Path.GetDirectoryName(GameFilePath), "mods"); } 
+                catch { MessageBox.Show("Please select the Game File in the conifgs, \n " +
+                    "If you get this Error Pls Write me a message because this shouldn't happen"); return ""; } } }
     }
 
 
-
-
+    /// <summary>
+    /// this whole section isn't written by me or any friend of me (copyed from a library not stackoverflow)
+    /// </summary>
     #region not mine
     internal class DynamicCollection : IEnumerable<AutocompleteItem>
     {

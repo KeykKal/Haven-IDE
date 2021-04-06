@@ -203,7 +203,7 @@ namespace IDE_test
         private void newToolStripButton_Click(object sender, EventArgs e)
         {
             Design design = new Design(designsList);
-            design.createNewFile(tabControl1, design.codeTextBox);
+            design.createNewFile(tabControl1);
         }
 
         private void openToolStripButton_Click(object sender, EventArgs e)
@@ -231,19 +231,25 @@ namespace IDE_test
                 }
                 else if (fileExt == ".FLOW" || fileExt == ".MSG")
                 {
-                    Design design = new Design(designsList);
-                    using (StreamReader sr = new StreamReader(openFile.FileName))
-                    {
-                        //MessageBox.Show(openFile.FileName);
-                        design.openFile(tabControl1, design.codeTextBox, openFile.FileName, sr.ReadToEnd());
-                        //richTextBox1.Text = sr.ReadToEnd();
-                        sr.Close();
-                    }
+                    openTheFile(openFile.FileName);
                 }
                 else
                 {
                     MessageBox.Show("Wrong File Typ" + "has the following ext (" + fileExt + ").");
                 }
+            }
+        }
+
+        //originally created to open the file after it is decompiled but now it just looks cleaner
+        public void openTheFile(string fileName)
+        {
+            Design design = new Design(designsList);
+            using (StreamReader sr = new StreamReader(fileName))
+            {
+                //MessageBox.Show(openFile.FileName);
+                design.openFile(tabControl1, fileName, sr.ReadToEnd());
+                //richTextBox1.Text = sr.ReadToEnd();
+                sr.Close();
             }
         }
 
@@ -253,9 +259,10 @@ namespace IDE_test
             Code.Save(designsList[tabControl1.SelectedIndex]);
         }
 
+        //NOOO!!!
         void onChangeTab(Object sender, EventArgs e)
         {
-            MessageBox.Show(tabControl1.SelectedIndex.ToString());
+            //MessageBox.Show(tabControl1.SelectedIndex.ToString());
         }
 
         #region Not important
@@ -358,7 +365,7 @@ namespace IDE_test
         private void test_IDE_Load(object sender, EventArgs e)
         {
             Design design = new Design(designsList);
-            design.createNewFile(tabControl1, design.codeTextBox);
+            design.createNewFile(tabControl1);
             if (tabControl1.TabCount > 0)
                 documentMap1.Target = designsList[tabControl1.SelectedIndex].codeTextBox;
 
@@ -438,20 +445,10 @@ namespace IDE_test
 
         private void playButton_T_Click(object sender, EventArgs e)
         {
-            Design design = new Design(designsList);
-            OpenFileDialog openFile = new OpenFileDialog
-            {
-                Title = "Open a new file.. ",
-                Multiselect = true,
-                //Filter = "DataType (*.BF;*.FLOW;*.MSG,*.BMD)|*.BF;*.FLOW;*.MSG;*.BMG|" +
-                //"All files (*.*)|*.*"
-            };
-
-            if (openFile.ShowDialog() == DialogResult.OK)
-            {
-
-                Code.AutoCompile(openFile.FileName);
-            }
+            //MessageBox.Show(designsList[tabControl1.SelectedIndex].path);
+            
+            //doesn't rn
+            //Code.StartGame(FilePaths.ReloadedPath, FilePaths.GameFilePath, designsList[tabControl1.SelectedIndex].path);
         }
 
         private void collabsAll_Click(object sender, EventArgs e)

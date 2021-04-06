@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Text;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace IDE_test
 {
@@ -14,7 +16,7 @@ namespace IDE_test
         public static void Decompile(string[] filepaths)
         {
 
-            MessageBox.Show("Started Decompiling. this will be done in the background and could take a while");
+            MessageBox.Show("Started Decompiling. If you want to see the Log, activate the console (View --> Show/Hide Console)");
 
             GUI.Hook = Properties.Settings.Default.Hook;
             GUI.Disassemble = Properties.Settings.Default.Disassemble;
@@ -22,7 +24,7 @@ namespace IDE_test
             GUI.Log = Properties.Settings.Default.Log;
 
             GUI.Selection = FilePaths.selectedGame;
-            GUI.Decompile(filepaths);
+            GUI.DecompileAsync(filepaths);
 
 
 
@@ -120,7 +122,7 @@ namespace IDE_test
 
         public static void Compile(string[] filepaths)
         {
-            MessageBox.Show("Started Compiling. This will be done in the background and could take a while");
+            MessageBox.Show("Started Compiling. Log can be seen with the built in Console (View --> Hide/Show Console)");
 
             GUI.Hook = Properties.Settings.Default.Hook;
             GUI.Disassemble = Properties.Settings.Default.Disassemble;
@@ -128,12 +130,13 @@ namespace IDE_test
             GUI.Log = Properties.Settings.Default.Log;
 
             GUI.Selection = FilePaths.selectedGame;
-            GUI.Compile(filepaths);
+            GUI.CompileAsync(filepaths);
 
         }
         #endregion
 
         #region can be usefull at times
+        //ok I need to change this to the stringBuilder that would save preforments and is actually a smarter way that this one
         public static string addToString(string original, string toAdd)
         {
             return original + toAdd;
@@ -197,35 +200,92 @@ namespace IDE_test
 
 
         #region not finished
-        //unfinished
-        public static void startGame(string filePath)
+
+        /// <summary>
+        /// to start the moded game (Doesn't work)
+        /// </summary>
+        /// <param name="reloadedPath">reloaded.exe file path</param>
+        /// <param name="gamePath">the game file path (persona 4G or any other game that is connected with Reloaded)</param>
+        /// <param name="inputFilePath">the file path</param>
+        /// <returns></returns>
+        //unfinished and for later approaches 
+        public static string StartGame(string reloadedPath, string gamePath, string inputFilePath)
         {
-            string[] _path = { filePath };
-            //move the modded files inside of the mod folder or dont idk but compile them or not
+            //Save and Compile if the current file if user wants to
+            //just Temp
+            string[] filePaths = { inputFilePath };
+            //MessageBox.Show("Ok works");
+            //move files to the mod folder
+            string bfFilePath = Path.GetFileNameWithoutExtension(inputFilePath);
 
+            //start the game
+            //var args = new List<string>();
+            //args.Add($"{reloadedPath}");
+            //args.Add($"--launch {gamePath}");
+            //RunCMD(args);
 
-            //start the modded game here
-
+            //retrun the output file
+            return Path.Combine(FilePaths.modFolderPath, inputFilePath);
         }
 
-        public static void startTheGame(string ReloadedPath, string GamePath)
+        /// <summary>
+        /// also not working way to start the game
+        /// </summary>
+        /// <param name="reloadedPath"></param>
+        /// <param name="gamePath"></param>
+        //Temporary solution until the other one is finished
+        public static void StartGame(string reloadedPath, string gamePath)
+        { 
+            //Save and Compile if the current file if user wants to
+
+            //move files to the mod folder
+            
+
+            //start the game
+            var args = new List<string>();
+            args.Add($"{reloadedPath}");
+            args.Add($"--launch {gamePath}");
+            RunCMD(args);
+        }
+        
+        /// <summary>
+        /// to start CMD
+        /// </summary>
+        /// <param name="args"></param>
+        static void RunCMD(List<string> args)
         {
-            //Reloaded-II32.exe --launch P4G.exe
-
             ProcessStartInfo cmdStartInfo = new ProcessStartInfo();
-
             cmdStartInfo.FileName = "cmd";
-            cmdStartInfo.Arguments = "Reloaded-II32.exe --launch P4G.exe";
 
-            using (Process cmdProcess = new Process())
+            cmdStartInfo.UseShellExecute = true;
+            cmdStartInfo.RedirectStandardOutput = false;
+            cmdStartInfo.WindowStyle = ProcessWindowStyle.Normal;
+            StringBuilder cmdInput = new StringBuilder();
+
+            cmdInput.Append($"/C {args[0]} ");
+            for (int i = 1; i < args.Count - 1; i++)
+                cmdInput.Append($"{args[i]} ");
+            cmdInput.Append(args[args.Count - 1]);
+
+            //for(int i = 0; i < args.Count; i++)
+            //{
+            //    MessageBox.Show(args[i]);
+            //    cmdInput.Append(args[i]);
+            //}
+            //MessageBox.Show(cmdInput.ToString());
+            cmdStartInfo.Arguments = cmdInput.ToString();//"Reloaded-II32.exe --launch P4G.exe";
+            cmdStartInfo.Arguments = cmdStartInfo.Arguments.Replace("/C", "/K");
+            using (Process cmdProcess = Process.Start(cmdStartInfo))
             {
             }
-
         }
+
         #endregion
 
         #region no fucking clue how to do that
-        //doesn't work not even a bit
+        //doesn't work not even a bit 
+        //Update: this is useless reminder to myself get rid of this shit 
+        //Update: I really need to get rid of this shit holy fuck
         public static void AutoCompile(string filePath)
         {
             //checkCreatedFiles(filePath);
@@ -291,7 +351,7 @@ namespace IDE_test
                 {
                     case ".BMD":
                     case ".BF":
-                        while (!File.Exists(Path.GetFileName(filePath) + ".flow")) ;
+                        while (!File.Exists(Path.GetFileName(filePath) + ".flow"));
                         break;
                     case ".FLOW":
                     case ".MSG":
@@ -299,7 +359,7 @@ namespace IDE_test
                         break;
                     default: MessageBox.Show("Something went terrebliy wrong"); break;
                 }
-                MessageBox.Show("oke");
+                //MessageBox.Show("oke");
             }
         }
         #endregion

@@ -465,6 +465,7 @@
             this.TestWindowButton.Name = "TestWindowButton";
             this.TestWindowButton.Size = new System.Drawing.Size(86, 26);
             this.TestWindowButton.Text = "Test Window";
+            this.TestWindowButton.Visible = false;
             this.TestWindowButton.Click += new System.EventHandler(this.TestWindowButton_Click_1);
             // 
             // menuStrip2
@@ -585,7 +586,6 @@
             this.playButton_T.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.playButton_T.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.playButton_T.UseVisualStyleBackColor = false;
-            this.playButton_T.Visible = false;
             this.playButton_T.Click += new System.EventHandler(this.playButton_T_Click);
             // 
             // consoleTextBox
@@ -717,7 +717,6 @@
         private FontAwesome.Sharp.IconToolStripButton pasteToolStripButton1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private FontAwesome.Sharp.IconToolStripButton helpToolStripButton;
-        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem2;
@@ -747,6 +746,7 @@
         private FastColoredTextBoxNS.DocumentMap documentMap1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
+        public System.Windows.Forms.TabControl tabControl1;
     }
 }
 

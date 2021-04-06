@@ -154,5 +154,17 @@ namespace IDE_test.Properties {
                 this["GamePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ReloadedPath {
+            get {
+                return ((string)(this["ReloadedPath"]));
+            }
+            set {
+                this["ReloadedPath"] = value;
+            }
+        }
     }
 }
