@@ -35,6 +35,7 @@
             this.chk_overwrite = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.configPage = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
             this.relodedSelectButton = new System.Windows.Forms.Button();
             this.relodedFilePath = new System.Windows.Forms.TextBox();
             this.relodedPathLabel = new System.Windows.Forms.Label();
@@ -125,6 +126,7 @@
             // configPage
             // 
             this.configPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.configPage.Controls.Add(this.label9);
             this.configPage.Controls.Add(this.relodedSelectButton);
             this.configPage.Controls.Add(this.relodedFilePath);
             this.configPage.Controls.Add(this.relodedPathLabel);
@@ -143,6 +145,17 @@
             this.configPage.TabIndex = 0;
             this.configPage.Text = "Config";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label9.ForeColor = System.Drawing.SystemColors.Control;
+            this.label9.Location = new System.Drawing.Point(3, 83);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(583, 32);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "Please Ignore this empty space I am bad at designing";
+            // 
             // relodedSelectButton
             // 
             this.relodedSelectButton.Location = new System.Drawing.Point(507, 112);
@@ -152,6 +165,8 @@
             this.relodedSelectButton.TabIndex = 14;
             this.relodedSelectButton.Text = "...";
             this.relodedSelectButton.UseVisualStyleBackColor = true;
+            this.relodedSelectButton.Visible = false;
+            this.relodedSelectButton.Click += new System.EventHandler(this.relodedSelectButton_Click);
             // 
             // relodedFilePath
             // 
@@ -161,6 +176,7 @@
             this.relodedFilePath.ReadOnly = true;
             this.relodedFilePath.Size = new System.Drawing.Size(419, 23);
             this.relodedFilePath.TabIndex = 13;
+            this.relodedFilePath.Visible = false;
             // 
             // relodedPathLabel
             // 
@@ -172,6 +188,7 @@
             this.relodedPathLabel.Size = new System.Drawing.Size(74, 15);
             this.relodedPathLabel.TabIndex = 12;
             this.relodedPathLabel.Text = "Reloded exe:";
+            this.relodedPathLabel.Visible = false;
             // 
             // gameSelectButton
             // 
@@ -182,6 +199,7 @@
             this.gameSelectButton.TabIndex = 11;
             this.gameSelectButton.Text = "...";
             this.gameSelectButton.UseVisualStyleBackColor = true;
+            this.gameSelectButton.Visible = false;
             this.gameSelectButton.Click += new System.EventHandler(this.gameSelectButton_Click);
             // 
             // gameFilePath
@@ -192,6 +210,7 @@
             this.gameFilePath.ReadOnly = true;
             this.gameFilePath.Size = new System.Drawing.Size(419, 23);
             this.gameFilePath.TabIndex = 10;
+            this.gameFilePath.Visible = false;
             // 
             // GameName
             // 
@@ -203,9 +222,11 @@
             this.GameName.Size = new System.Drawing.Size(52, 15);
             this.GameName.TabIndex = 9;
             this.GameName.Text = "P4G exe:";
+            this.GameName.Visible = false;
             // 
             // label8
             // 
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label8.ForeColor = System.Drawing.SystemColors.Control;
@@ -241,6 +262,7 @@
             // 
             // label7
             // 
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -438,5 +460,6 @@
         private System.Windows.Forms.Button relodedSelectButton;
         private System.Windows.Forms.TextBox relodedFilePath;
         private System.Windows.Forms.Label relodedPathLabel;
+        private System.Windows.Forms.Label label9;
     }
 }

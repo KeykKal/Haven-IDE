@@ -18,6 +18,7 @@ using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
 using AtlusScriptLibrary.MessageScriptLanguage.Decompiler;
 using FormatVersion = AtlusScriptLibrary.FlowScriptLanguage.FormatVersion;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace IDE_test
 {
@@ -48,6 +49,10 @@ namespace IDE_test
         public static bool FlowScriptEnableProcedureHook;
         public static Library library = LibraryLookup.GetLibrary(FilePaths.SelectedGamePath());
 
+
+        /// <summary>
+        /// Runs the Compiler hopefully asynchronous
+        /// </summary>
         public static void Run(string[] args)
         {
             if (args.Length == 0)
@@ -56,6 +61,8 @@ namespace IDE_test
                 //DisplayUsage(); //this one originally is here to show all the commands to compile/decompile. not needed anymore
                 return;
             }
+
+ 
 
             library = LibraryLookup.GetLibrary(FilePaths.SelectedGamePath());
 
@@ -84,11 +91,16 @@ namespace IDE_test
             {
                 if (DoCompile)
                 {
+                    //if (MessageBox.Show("Do you want to Start game together with the mod?", "Start Game?", MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
+                    //{
+                    //    OutputFilePath = Path.Combine(FilePaths.modFolderPath, Path.GetFileNameWithoutExtension(InputFilePath) + ".bf");
+                    //}
                     success = TryDoCompilation();
                 }
                 else if (DoDecompile)
                 {
                     success = TryDoDecompilation();
+                    //MessageBox.Show(OutputFilePath);
                 }
                 else if (DoDisassemble)
                 {
@@ -118,6 +130,7 @@ namespace IDE_test
             {
                 Logger.ConsoleInfo("Task completed successfully!");
                 MessageBox.Show("Task completed sucessfully");
+
             }
             else
             {
@@ -129,7 +142,9 @@ namespace IDE_test
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-
+        /// <summary>
+        /// Needed to reset the values after each compile/decopmile
+        /// </summary>
         static void ResetValues()
         {
             //library = null;
@@ -152,9 +167,10 @@ namespace IDE_test
             FlowScriptEnableStackCookie = false;
             FlowScriptEnableProcedureHook = false;
         }
-        
 
-
+        /// <summary>
+        /// returns true if it successfully could parse the input of the compiler
+        /// </summary>
         private static bool TryParseArguments(string[] args)
         {
             for (int i = 0; i < args.Length; i++)
@@ -265,7 +281,7 @@ namespace IDE_test
 
                         //MessageBox.Show("Library before: " + args[i]);
                         LibraryName = args[++i];
-                        MessageBox.Show("Library after: " + LibraryName);
+                        //MessageBox.Show("Library after: " + LibraryName);
                         library = LibraryLookup.GetLibrary(LibraryName);
                         break;
 
@@ -332,7 +348,7 @@ namespace IDE_test
             {
                 InputFilePath = args[0];
             }
-            MessageBox.Show(InputFilePath);
+            //MessageBox.Show(InputFilePath);
             if (!File.Exists(InputFilePath))
             {
                 Logger.ConsoleError($"Specified input file doesn't exist! ({InputFilePath})");
@@ -434,6 +450,9 @@ namespace IDE_test
             return true;
         }
 
+        /// <summary>
+        /// to Disassemble the files
+        /// </summary>
         private static bool TryDoDisassembling()
         {
             switch (InputFileFormat)
@@ -456,6 +475,10 @@ namespace IDE_test
                     return false;
             }
         }
+
+        /// <summary>
+        /// to Disassemble the Flow script
+        /// </summary>
         private static bool TryDoFlowScriptDisassembly()
         {
             // load binary file
@@ -486,6 +509,9 @@ namespace IDE_test
             return true;
         }
 
+        /// <summary>
+        /// trys to Compile file returns true if it is compiled succesfully
+        /// </summary>
         private static bool TryDoCompilation()
         {
             switch (InputFileFormat)
@@ -508,6 +534,9 @@ namespace IDE_test
             }
         }
 
+        /// <summary>
+        /// Compiles the Flow script returns true if it is compiled succesfully
+        /// </summary>
         private static bool TryDoFlowScriptCompilation()
         {
             Logger.ConsoleInfo("Compiling FlowScript...");
@@ -519,7 +548,7 @@ namespace IDE_test
                 Logger.ConsoleError("Invalid FlowScript file format specified");
                 return false;
             }
-            MessageBox.Show("Console.WriteLine();");
+            //MessageBox.Show("Console.WriteLine();");
             // Compile source
             var compiler = new FlowScriptCompiler(version);
             compiler.Library = library;
@@ -535,7 +564,7 @@ namespace IDE_test
             if (LibraryName != null)
             {
                 var library = LibraryLookup.GetLibrary(LibraryName);
-                MessageBox.Show("LibraryName: " + LibraryName);
+                //MessageBox.Show("LibraryName: " + LibraryName);
                 if (library == null)
                 {
                     Logger.ConsoleError("Invalid library name specified");
@@ -551,7 +580,7 @@ namespace IDE_test
             {
                 try
                 {
-                    MessageBox.Show(file.Name);
+                    //MessageBox.Show(file.Name);
                     success = compiler.TryCompile(file, out flowScript);
                 }
                 catch (UnsupportedCharacterException e)
@@ -571,40 +600,9 @@ namespace IDE_test
             return TryPerformAction("An error occured while saving the file.", () => flowScript.ToFile(OutputFilePath));
         }
 
-        private static FormatVersion GetFlowScriptFormatVersion()
-        {
-            FormatVersion version;
-            switch (OutputFileFormat)
-            {
-                case OutputFileFormat.V1:
-                    version = FormatVersion.Version1;
-                    break;
-                case OutputFileFormat.V1BE:
-                    version = FormatVersion.Version1BigEndian;
-                    break;
-                case OutputFileFormat.V1DDS:
-                    version = FormatVersion.Version1; // TODO: relay proper MessageScript version to FlowScript loader
-                    break;
-                case OutputFileFormat.V2:
-                    version = FormatVersion.Version2;
-                    break;
-                case OutputFileFormat.V2BE:
-                    version = FormatVersion.Version2BigEndian;
-                    break;
-                case OutputFileFormat.V3:
-                    version = FormatVersion.Version3;
-                    break;
-                case OutputFileFormat.V3BE:
-                    version = FormatVersion.Version3BigEndian;
-                    break;
-                default:
-                    version = FormatVersion.Unknown;
-                    break;
-            }
-
-            return version;
-        }
-
+        /// <summary>
+        /// Compiles the Message script returns true if it is compiled succesfully
+        /// </summary>
         private static bool TryDoMessageScriptCompilation()
         {
             // Compile source
@@ -659,6 +657,46 @@ namespace IDE_test
             return true;
         }
 
+        /// <summary>
+        /// To determine the flowscript version
+        /// </summary>
+        private static FormatVersion GetFlowScriptFormatVersion()
+        {
+            FormatVersion version;
+            switch (OutputFileFormat)
+            {
+                case OutputFileFormat.V1:
+                    version = FormatVersion.Version1;
+                    break;
+                case OutputFileFormat.V1BE:
+                    version = FormatVersion.Version1BigEndian;
+                    break;
+                case OutputFileFormat.V1DDS:
+                    version = FormatVersion.Version1; // TODO: relay proper MessageScript version to FlowScript loader
+                    break;
+                case OutputFileFormat.V2:
+                    version = FormatVersion.Version2;
+                    break;
+                case OutputFileFormat.V2BE:
+                    version = FormatVersion.Version2BigEndian;
+                    break;
+                case OutputFileFormat.V3:
+                    version = FormatVersion.Version3;
+                    break;
+                case OutputFileFormat.V3BE:
+                    version = FormatVersion.Version3BigEndian;
+                    break;
+                default:
+                    version = FormatVersion.Unknown;
+                    break;
+            }
+
+            return version;
+        }
+
+        /// <summary>
+        /// To determine the Messageversion
+        /// </summary>
         private static AtlusScriptLibrary.MessageScriptLanguage.FormatVersion GetMessageScriptFormatVersion()
         {
             AtlusScriptLibrary.MessageScriptLanguage.FormatVersion version;
@@ -682,6 +720,9 @@ namespace IDE_test
             return version;
         }
 
+        /// <summary>
+        /// Tries to Decompile returns true if it is successful
+        /// </summary>
         private static bool TryDoDecompilation()
         {
             switch (InputFileFormat)
@@ -703,6 +744,10 @@ namespace IDE_test
                     return false;
             }
         }
+
+        /// <summary>
+        /// decompiles the flowscript returns true if it is successful
+        /// </summary>
         private static bool TryDoFlowScriptDecompilation()
         {
             // Load binary file
@@ -741,28 +786,15 @@ namespace IDE_test
                 return false;
             }
 
+            //open flow script
+
+
             return true;
         }
 
-
-        private static bool TryPerformAction(string errorMessage, Action action)
-        {
-#if !DEBUG
-            try
-            {
-#endif
-            action();
-#if !DEBUG
-            }
-            catch ( Exception e )
-            {
-                LogException( errorMessage, e );
-                return false;
-            }
-#endif
-
-            return true;
-        }
+        /// <summary>
+        /// decompiles the messagescript returns true if it is successful
+        /// </summary>
         private static bool TryDoMessageScriptDecompilation()
         {
             // load binary file
@@ -799,9 +831,37 @@ namespace IDE_test
                 return false;
             }
 
+            //open msg file
+
             return true;
         }
 
+        /// <summary>
+        /// always returns true and preforms the action 
+        /// </summary>
+        private static bool TryPerformAction(string errorMessage, Action action)
+        {
+#if !DEBUG
+            try
+            {
+#endif
+            action();
+#if !DEBUG
+            }
+            catch ( Exception e )
+            {
+                LogException( errorMessage, e );
+                return false;
+            }
+#endif
+
+            return true;
+        }
+
+        /// <summary>
+        /// Isn't used anywhere and i am not sure if it is even usefull
+        /// but it just prints the errors to the console
+        /// </summary>
         private static void LogException(string message, Exception e)
         {
             Logger.Error(message);
@@ -810,9 +870,13 @@ namespace IDE_test
             Logger.Error("Stacktrace:");
             Logger.Error($"{e.StackTrace}");
         }
+
+
     }
 
-
+    /// <summary>
+    /// Possible File Formats for the input file
+    /// </summary>
     public enum InputFileFormat
     {
         None,
@@ -823,6 +887,9 @@ namespace IDE_test
         MessageScriptTextSource
     }
 
+    /// <summary>
+    /// Possible File Formats for the output file
+    /// </summary>
     public enum OutputFileFormat
     {
         None,

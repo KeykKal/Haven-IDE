@@ -13,7 +13,11 @@ namespace IDE_test
     class Design
     {
         #region vars
-        public string path = ""; //ToDo save the file path in here
+        public string path = ""; //TODO: save the file path in here | it should work
+      
+        /// <summary>
+        /// determin if the file (the opened tab) is saved
+        /// </summary>
         public bool isSaved
         {
             get
@@ -36,10 +40,17 @@ namespace IDE_test
             }
         }
         bool _isSaved = true;
+        /// <summary>
+        /// the selected games name used to get the librarys name
+        /// </summary>
         string game;
+
         public string tabTitle { get; set; }
         #endregion
 
+        /// <summary>
+        /// a static list to hold track of the tabs
+        /// </summary>
         public static List<Design> designList = new List<Design>();
         public Design(List<Design> ts)
         {
@@ -73,7 +84,6 @@ namespace IDE_test
             setUpAutoComplete();
         }
 
-
         #region tab
         public TabControl tabControl { get; private set; }
         TabPage tabPage = new TabPage()
@@ -92,7 +102,10 @@ namespace IDE_test
         #region Auto Complete
 
         static AutocompleteMenu popupMenu;
-
+        
+        /// <summary>
+        /// Sets uo the Auto complete option
+        /// </summary>
         public void setUpAutoComplete()
         {
             //for the flow script (tbh i just copy pasted this one this is way more time efficent)
@@ -128,7 +141,7 @@ namespace IDE_test
             var library = LibraryLookup.GetLibrary(game);
             if (library == null)
             {
-                MessageBox.Show("[ERROR] Couldn't find library folder please make sure that AtlusScriptCompiler.exe was selected in the Cofingaration Settings");
+                MessageBox.Show("[ERROR] Couldn't find library folder please make sure that it is inside of the .exe folder");
                 return;
             }
             for (int i = 0; i < library.FlowScriptModules.Count; i++)
@@ -160,6 +173,10 @@ namespace IDE_test
 
             popupMenu.Items.SetAutocompleteItems(items);
         }
+        
+        /// <summary>
+        /// to update the auto complete (not very opitimal)
+        /// </summary>
         public void UpdateAutoComplete()
         {
             setUpAutoComplete();
@@ -169,6 +186,12 @@ namespace IDE_test
 
 
         #region Tooltip
+        /// <summary>
+        /// reads the json files in the Libraries folder to give them a tooltip
+        /// </summary>
+        /// <param name="word">the word that should get the tooltip</param>
+        /// <param name="library">from which library is it</param>
+        /// <returns></returns>
         private string ToolTip(string word, Library library)
         {
 
@@ -206,6 +229,10 @@ namespace IDE_test
 
             return "";
         }
+
+        /// <summary>
+        /// called with the event and is called everytime a tooltip is called (mouse hovers over a method)
+        /// </summary>
         private void ToolTipIsNeeded(object sender, ToolTipNeededEventArgs e)
         {
             if (String.IsNullOrEmpty(e.HoveredWord)) return;
@@ -226,6 +253,7 @@ namespace IDE_test
             }
 
         }
+
         #endregion
 
 
@@ -277,6 +305,11 @@ namespace IDE_test
 
         #region delete/remove Tabs
 
+        /// <summary>
+        /// removes/closes this tab
+        /// </summary>
+        /// <param name="ts">List of tabs</param>
+        /// <param name="control"></param>
         public void RemoveTab(List<Design> ts, TabControl control)
         {
             if (this.isSaved)
@@ -308,6 +341,11 @@ namespace IDE_test
             }
         }
 
+        /// <summary>
+        /// Remove all the tabs
+        /// </summary>
+        /// <param name="ts">List with the tabs</param>
+        /// <param name="e"></param>
         public static void RemoveAll(List<Design> ts, FormClosingEventArgs e)
         {
             foreach (var design in ts.ToArray())
@@ -338,6 +376,9 @@ namespace IDE_test
         #endregion
 
         #region Value settings
+        /// <summary>
+        /// everytime the text is changed in a way used to change the name with an * at the moment
+        /// </summary>
         void ValuesChanged()
         {
             string newTitle = "*" + tabTitle;
@@ -345,16 +386,27 @@ namespace IDE_test
                 tabPage.Text = newTitle;
         }
 
+        /// <summary>
+        /// called when the tab is saved
+        /// </summary>
         void ValuesSaved()
         {
             if (tabPage.Text.Contains("*"))
                 tabPage.Text = tabTitle;
         }
 
+        /// <summary>
+        /// to update values if they are changed
+        /// </summary>
         public void updateValues()
         {
             this.tabPage.Text = this.tabTitle;
         }
+        
+
+        /// <summary>
+        /// called when the text changes
+        /// </summary>
         public void onTextChanged(object sender, TextChangedEventArgs e)
         {
             isSaved = false;
@@ -363,25 +415,15 @@ namespace IDE_test
         #endregion
 
         #region new Tabs/Files
+
+        /// <summary>
+        /// called to open a tab with the code textbox
+        /// </summary>
+        /// <param name="tabControl"></param>
+        /// <param name="rchtext"></param>
+        /// <returns></returns>
         public TabPage OpenCodeTab(TabControl tabControl, FastColoredTextBox rchtext)
         {
-            //var documentMap = new DocumentMap()
-            //{
-            //    Target = rchtext,
-            //    Dock = DockStyle.Right,
-            //    ForeColor = System.Drawing.Color.PaleVioletRed,
-            //    BackColor = Color.FromArgb(50, 50, 55),
-            //    Size = new System.Drawing.Size(200, 0),
-            //};
-
-            //var splitter = new Splitter()
-            //{
-            //    BackColor = Color.FromArgb(30, 30, 30),
-            //    Dock = DockStyle.Right,
-            //    Size = new System.Drawing.Size(10, 3),
-            //    MinimumSize = new Size(0, 0)
-            //}
-
             string title = "Tab " + (tabControl.TabCount + 1).ToString();
             if (tabTitle == null)
                 tabTitle = title;
@@ -397,18 +439,28 @@ namespace IDE_test
             return tabPage;
         }
 
-        public void createNewFile(TabControl tabControl, FastColoredTextBox rchtxt)
+
+        /// <summary>
+        /// called when creating a file
+        /// </summary>
+        /// <param name="tabControl"></param>
+        public void createNewFile(TabControl tabControl)
         {
-            TabPage newTab = OpenCodeTab(tabControl, rchtxt);
+            TabPage newTab = OpenCodeTab(tabControl, this.codeTextBox);
             tabControl.SelectedTab = newTab;
         }
-
-        public void openFile(TabControl tabControl, FastColoredTextBox rchtxt, string filePath, string fileInfo)
+        /// <summary>
+        /// called to open a existing file
+        /// </summary>
+        /// <param name="tabControl"></param>
+        /// <param name="filePath"></param>
+        /// <param name="fileInfo"></param>
+        public void openFile(TabControl tabControl, string filePath, string fileInfo)
         {
             this.path = filePath;
             this.tabTitle = Path.GetFileName(filePath);
-            rchtxt.Text = fileInfo;
-            TabPage newTab = OpenCodeTab(tabControl, rchtxt);
+            this.codeTextBox.Text = fileInfo;
+            TabPage newTab = OpenCodeTab(tabControl, this.codeTextBox);
             tabControl.SelectedTab = newTab;
             this.isSaved = true;
             updateValues();
@@ -436,7 +488,13 @@ namespace IDE_test
         static TextStyle MultiLineCommentStyl = new TextStyle(new SolidBrush(Properties.Settings.Default.MultiLineCommentColor), null, FontStyle.Regular); //check
         static TextStyle stringstyl = new TextStyle(new SolidBrush(Properties.Settings.Default.stringColor), null, FontStyle.Regular); //check
         static TextStyle MSGStyl = new TextStyle(new SolidBrush(Properties.Settings.Default.MSGColor), null, FontStyle.Regular);//check
-        static TextStyle FunctionNameStyle = new TextStyle(new SolidBrush(Properties.Settings.Default.MSGColor), null, FontStyle.Regular);//well some what
+        static TextStyle FunctionNameStyle = new TextStyle(new SolidBrush(Properties.Settings.Default.MSGColor), null, FontStyle.Regular);//well sort of
+
+        /// <summary>
+        /// create and update the syntax highlighting
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="fctb"></param>
         public static void syntaxHighlights(TextChangedEventArgs e, FastColoredTextBox fctb)
         {
             NumberStyl.ForeBrush = new SolidBrush(Properties.Settings.Default.NumberColor);

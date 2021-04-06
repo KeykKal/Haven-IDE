@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace AtlusScriptLibrary.Common.Logging
 {
@@ -87,6 +88,8 @@ namespace AtlusScriptLibrary.Common.Logging
 
 
     }
+
+
 
     public delegate void LogEventHandler( object sender, LogEventArgs e );
 
